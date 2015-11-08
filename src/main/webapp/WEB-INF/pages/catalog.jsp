@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--@elvariable id="books" type="List<com.iread.model.IReadBook>"--%>
+
+<sec:authorize var="isAuth" access="isAuthenticated()" />
+<sec:authentication var="principal" property="principal" />
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -50,17 +54,33 @@
                 <li><a href="#">пункт 3</a></li>
                 <li><a href="#">пункт 4</a></li>
             </ul>
-            <form action="" class="navbar-form navbar-right">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="E-mail" value="">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Пароль" value="">
-                </div>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa fa-sign-in"></i> ВОЙТИ
-                </button>
-            </form>
+            <c:choose>
+                <c:when test="${isAuth}">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    ${principal.username} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<c:url value="/j_spring_security_logout" />">Выйти</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </c:when>
+                <c:otherwise>
+                    <form action="<c:url value='/j_spring_security_check' />" method="POST" class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="user" name="j_username" placeholder="E-mail" value="">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="password" name="j_password" placeholder="Пароль" value="">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-sign-in"></i> ВОЙТИ
+                        </button>
+                    </form>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>
