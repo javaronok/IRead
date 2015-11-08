@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - i_shall_read@localhost" uuid="423a5e46-6c2a-42e9-8823-24deb4816812">
+    <database-info product="MySQL" version="5.5.43-log" jdbc-version="3.0" driver-name="MySQL-AB JDBC Driver" driver-version="mysql-connector-java-5.1.6 ( Revision: ${svn.Revision} )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="i_shall_read"/>
+    <table name="books" schema="" catalog="i_shall_read" type="TABLE">
+      <column name="ID" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" remarks="0JjQtNC10L3RgtC40YTQuNC60LDRgtC+0YA=" autoIncrement="true"/>
+      <column name="BOOK_NAME" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" remarks="0J3QsNC30LLQsNC90LjQtSDQutC90LjQs9C4"/>
+      <column name="BOOK_AUTHOR" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" remarks="0JDQstGC0L7RgA=="/>
+      <column name="PUBLICATION_YEAR" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="ANNOTATION" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1" remarks="0JDQvdC90L7RgtCw0YbQuNGP"/>
+      <primary-key name="PRIMARY" columns="ID"/>
+    </table>
+  </data-source>
+</component>
