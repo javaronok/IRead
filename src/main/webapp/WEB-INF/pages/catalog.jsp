@@ -139,98 +139,20 @@
 <div class="container">
     <div class="row">
         <div class="row masonry" data-columns>
-            <div class="item">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/600x340" alt="" class="img-responsive">
+            <c:forEach var="book" items="${books}">
+                <div class="item">
+                    <div class="thumbnail">
+                        <img src="http://placehold.it/600x340" alt="" class="img-responsive">
 
-                    <div class="caption">
-                        <h3><a href="#">Название поста</a></h3>
+                        <div class="caption">
+                            <h3><a href="#">${book.bookName}</a></h3>
 
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, repellendus
-                            perspiciatis. Inventore cum iusto quia necessitatibus eligendi nisi et, nesciunt deleniti,
-                            delectus magnam, voluptate labore? A ut, sapiente. Animi, minima!</p>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, repellendus
-                            perspiciatis. Inventore cum iusto quia necessitatibus eligendi nisi et, nesciunt deleniti,
-                            delectus magnam, voluptate labore? A ut, sapiente. Animi, minima!</p>
-                        <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
+                            <p>${book.annotation}</p>
+                            <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="item">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/600x340" alt="" class="img-responsive">
-
-                    <div class="caption">
-                        <h3><a href="#">Название поста</a></h3>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, repellendus
-                            perspiciatis. Inventore cum iusto quia necessitatibus eligendi nisi et, nesciunt deleniti,
-                            delectus magnam, voluptate labore? A ut, sapiente. Animi, minima!</p>
-                        <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/600x340" alt="" class="img-responsive">
-
-                    <div class="caption">
-                        <h3><a href="#">Название поста</a></h3>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, repellendus
-                            perspiciatis. Inventore cum iusto quia necessitatibus eligendi nisi et, nesciunt deleniti,
-                            delectus magnam, voluptate labore? A ut, sapiente. Animi, minima!</p>
-                        <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/600x340" alt="" class="img-responsive">
-
-                    <div class="caption">
-                        <h3><a href="#">Название поста</a></h3>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, repellendus
-                            perspiciatis. Inventore cum iusto quia necessitatibus eligendi nisi et, nesciunt deleniti,
-                            delectus magnam, voluptate labore? A ut, sapiente. Animi, minima!</p>
-                        <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/600x340" alt="" class="img-responsive">
-
-                    <div class="caption">
-                        <h3><a href="#">Название поста</a></h3>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, repellendus
-                            perspiciatis. Inventore cum iusto quia necessitatibus eligendi nisi et, nesciunt deleniti,
-                            delectus magnam, voluptate labore? A ut, sapiente. Animi, minima!</p>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, repellendus
-                            perspiciatis. Inventore cum iusto quia necessitatibus eligendi nisi et, nesciunt deleniti,
-                            delectus magnam, voluptate labore? A ut, sapiente. Animi, minima!</p>
-                        <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/600x340" alt="" class="img-responsive">
-
-                    <div class="caption">
-                        <h3><a href="#">Название поста</a></h3>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, repellendus
-                            perspiciatis. Inventore cum iusto quia necessitatibus eligendi nisi et, nesciunt deleniti,
-                            delectus magnam, voluptate labore? A ut, sapiente. Animi, minima!</p>
-                        <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
+            </c:forEach>
         </div>
 
     </div>
