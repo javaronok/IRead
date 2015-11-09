@@ -14,7 +14,7 @@ public class RatingService {
     @Autowired
     private IReadRatingRepository IReadRatingRepository;
 
-    public List<IReadRating> getRatings(User user) {
-        return IReadRatingRepository.findByUser(user);
+    public List<IReadRating> getAllRatings() {
+        return IReadRatingRepository.findAll();
     }
 }

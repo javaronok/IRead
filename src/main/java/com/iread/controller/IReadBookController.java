@@ -40,8 +40,8 @@ public class IReadBookController {
 
         if (principal != null) {
             User user = userService.getUserByName(principal.getName());
-            List<IReadRating> IReadRatings = ratingService.getRatings(user);
-            List<IReadBook> recms = recommendationService.getRecommendation(IReadRatings, user);
+            List<IReadRating> iReadRatings = ratingService.getAllRatings();
+            List<IReadBook> recms = recommendationService.getRecommendation(iReadRatings, user);
             model.put("recommendations", recms);
         }
 
