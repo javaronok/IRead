@@ -20,6 +20,7 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/font-awesome.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/bootstrap-rating.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -150,6 +151,8 @@
 
                             <p>${book.annotation}</p>
                             <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
+                            <input type="hidden" class="rating"/>
+                            <span class="label label-default"></span>
                         </div>
                     </div>
                 </div>
@@ -254,5 +257,7 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.js"></script>
 <script src="js/salvattore.min.js"></script>
+<script src="js/bootstrap-rating.js"></script>
+<script src="js/catalog.js"></script>
 </body>
 </html>
