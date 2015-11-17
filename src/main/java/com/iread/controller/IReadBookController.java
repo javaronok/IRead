@@ -8,18 +8,15 @@ import com.iread.service.IReadBooksService;
 import com.iread.service.RatingService;
 import com.iread.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.List;
 
 @RestController
-@Controller
+@RequestMapping("/")
 public class IReadBookController {
 
     @Autowired
@@ -34,7 +31,7 @@ public class IReadBookController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/catalog", method = RequestMethod.GET)
+    @RequestMapping(value = "catalog", method = RequestMethod.GET)
     public ModelAndView show(ModelMap model, Principal principal) {
         List<IReadBook> books = iReadBooksService.listBooks();
 
@@ -47,5 +44,28 @@ public class IReadBookController {
 
         model.put("books", books);
         return new ModelAndView("catalog");
+    }
+
+    /*@RequestMapping(value = "books", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public List<IReadBook> listBooks() {
+        List<IReadBook> books = iReadBooksService.listBooks();
+        return books;
+    }*/
+
+    @RequestMapping(value = "rating", method = RequestMethod.POST)
+    @ResponseBody
+    public String postBookRating(@RequestParam("book") IReadBook book,
+                                 @RequestParam("rate") Integer rate,
+                                 Principal principal
+    ) throws IllegalAccessException {
+        if (principal == null)
+            throw new IllegalAccessException();
+
+        String userName = principal.getName();
+        User user = userService.getUserByName(userName);
+
+        ratingService.postBookRating(user, book, rate);
+        return "200";
     }
 }

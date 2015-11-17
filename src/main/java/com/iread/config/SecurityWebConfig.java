@@ -5,6 +5,7 @@ import com.iread.security.CustomAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,7 +43,8 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .headers().disable()
                 .authorizeRequests()
-                .anyRequest().fullyAuthenticated()
+                .antMatchers(HttpMethod.POST, "/rating").permitAll()
+                .anyRequest().anonymous()
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/j_spring_security_check")

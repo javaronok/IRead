@@ -62,7 +62,7 @@ public class AppWebMVCConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        //registry.addViewController("/catalog").setViewName("catalog");
+        registry.addViewController("/catalog").setViewName("catalog");
     }
 
     @Bean
