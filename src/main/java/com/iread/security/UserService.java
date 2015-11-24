@@ -1,9 +1,9 @@
 package com.iread.security;
 
+import com.iread.form.UserSignUpForm;
 import com.iread.model.User;
 import com.iread.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -68,4 +68,30 @@ public class UserService {
     public void delete(User user) {
         userRepository.delete(user);
     }
+
+    @Transactional(readOnly = false)
+    public User saveNewUserForm(UserSignUpForm form) {
+        if (form == null || form.getLogin() == null || form.getPasswd() == null || form.getPasswdRepeat() == null ||
+                !form.getPasswd().equals(form.getPasswdRepeat()))
+        {
+            throw new IllegalArgumentException("Проверьте введённые данные");
+        }
+
+        String encodedPassword = passwordEncoder.encode(form.getPasswd());
+
+        return saveNewUser(form.getLogin(), encodedPassword, form.getFirstName(), form.getLastName());
+    }
+
+    public User saveNewUser(String login, String password, String firstName, String lastName) {
+        User user = new User();
+        user.setUsername(login);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setPassword(password);
+        user.setEnabled(true);
+
+        userRepository.save(user);
+        return user;
+    }
+
 }

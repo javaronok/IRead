@@ -20,7 +20,7 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
 
     public AuthenticationSuccessHandler() {
         super();
-        this.setAlwaysUseDefaultTargetUrl(true);
+        //this.setAlwaysUseDefaultTargetUrl(true);
         this.setDefaultTargetUrl(DEFAULT);
     }
 
