@@ -4,10 +4,12 @@ import com.iread.model.IReadBook;
 import com.iread.model.IReadRating;
 import com.iread.model.User;
 import com.iread.repository.IReadRatingRepository;
+import com.iread.repository.RatingStatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -15,6 +17,9 @@ public class RatingService {
 
     @Autowired
     private IReadRatingRepository iReadRatingRepository;
+
+    @Autowired
+    private RatingStatRepository ratingRepository;
 
     public List<IReadRating> getAllRatings() {
         return iReadRatingRepository.findAll();
@@ -37,4 +42,9 @@ public class RatingService {
 
         iReadRatingRepository.save(rating);
     }
+
+    public BigDecimal avgBookRating(IReadBook book) {
+        return ratingRepository.avgBookRating(book);
+    }
+
 }

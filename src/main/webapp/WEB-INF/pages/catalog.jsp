@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%--@elvariable id="books" type="List<com.iread.model.IReadBook>"--%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%--@elvariable id="books" type="List<com.iread.form.BookForm>"--%>
 <%--@elvariable id="recommendations" type="List<com.iread.model.IReadBook>"--%>
 
 <sec:authorize var="isAuth" access="isAuthenticated()" />
@@ -30,6 +31,7 @@
     <![endif]-->
 </head>
 <body>
+<input id="isAuthed" type="hidden" value="${isAuth}" />
 <input id="bookListDataUrl" type="hidden" value="<c:url value="/books"/>" />
 <input id="ratingPostUrl" type="hidden" value="<c:url value="/rating"/>" />
 
@@ -73,7 +75,8 @@
                     </ul>
                 </c:when>
                 <c:otherwise>
-                    <form action="<c:url value='/j_spring_security_check' />" method="POST" class="navbar-form navbar-right">
+                    <div class="navbar-right">
+                    <form action="<c:url value='/j_spring_security_check' />" method="POST" class="navbar-form">
                         <div class="form-group">
                             <input type="text" class="form-control" id="user" name="j_username" placeholder="E-mail" value="">
                         </div>
@@ -84,6 +87,10 @@
                             <i class="fa fa-sign-in"></i> ВОЙТИ
                         </button>
                     </form>
+                    <!--button class="btn btn-primary"-->
+                        <a class="btn btn-primary" href="<c:url value="/signup"/>"><i class="fa fa-sign-in"></i> РЕГИСТРАЦИЯ</a>
+                    <!--/button-->
+                    </div>
                 </c:otherwise>
             </c:choose>
         </div>
@@ -160,17 +167,29 @@
                     </div>
                 </div>
             </div-->
-            <c:forEach var="book" items="${books}">
-                <div class="item" bookId="${book.id}">
+            <c:forEach var="item" items="${books}">
+                <div class="item" bookId="${item.book.id}">
                     <div class="thumbnail">
                         <img src="http://placehold.it/600x340" alt="" class="img-responsive">
 
                         <div class="caption">
-                            <h3><a href="#">${book.bookName}</a></h3>
+                            <h3><a href="#">${item.book.bookName}</a></h3>
 
-                            <p>${book.annotation}</p>
+                            <div style="display: inline-block; position: relative;" class="rating-symbol">
+                                <div style="visibility: hidden;" class="rating-symbol-background glyphicon glyphicon-star-empty"></div>
+                                <div style="display: inline-block; position: absolute; overflow: hidden; left: 0px; right: 0px; width: auto;" class="rating-symbol-foreground">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </div>
+                            </div>
+                            <span class="avg-rating label label-default">${item.avgRating}</span>
+
+                            <p>${item.book.annotation}</p>
                             <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
-                            <input type="hidden" class="rating"/>
+                            <c:choose>
+                            <c:when test="${isAuth}">
+                                <input type="hidden" class="rating" data-fractions="4" value="${item.avgRating}"  />
+                            </c:when>
+                            </c:choose>
                             <span class="label label-default"></span>
                         </div>
                     </div>

@@ -1,5 +1,6 @@
 package com.iread.controller;
 
+import com.iread.form.BookForm;
 import com.iread.model.IReadBook;
 import com.iread.model.IReadRating;
 import com.iread.model.User;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -34,6 +36,14 @@ public class IReadBookController {
     @RequestMapping(value = "catalog", method = RequestMethod.GET)
     public ModelAndView show(ModelMap model, Principal principal) {
         List<IReadBook> books = iReadBooksService.listBooks();
+        List<BookForm> result = new ArrayList<>();
+        for (IReadBook book : books) {
+            BookForm form = new BookForm();
+            form.setBook(book);
+            form.setAvgRating(ratingService.avgBookRating(book));
+
+            result.add(form);
+        }
 
         if (principal != null) {
             User user = userService.getUserByName(principal.getName());
@@ -42,7 +52,7 @@ public class IReadBookController {
             model.put("recommendations", recms);
         }
 
-        model.put("books", books);
+        model.put("books", result);
         return new ModelAndView("catalog");
     }
 

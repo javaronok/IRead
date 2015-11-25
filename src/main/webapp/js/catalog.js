@@ -1,38 +1,31 @@
-var bookModel = {
-    books: []
-};
-
-//var rivetsBookModelBinder;
-
 $(function(){
 
     $(document).ready(function() {
-        //initBooks();
+        var isAuthed = $('#isAuthed').val() === "true";
 
-        var $rating = $('.rating');
-        $rating.each(function () {
-            $('<span class="label label-default"></span>')
-                .text($(this).val() || ' ')
-                .insertAfter(this);
-        });
-        $rating.on('change', function () {
-            var rate = $(this).val();
-            $(this).next('.label').text(rate);
-            var bookId = $(this).parents('.item').get(0).getAttribute('bookid');
-            postRating(bookId, rate);
+        $('.item').each(function () {
+            var r = parseFloat($(this).find('.avg-rating').text());
+            $(this).find('.avg-rating').text(r.toFixed(2) || ' ');
         });
 
-        //rivetsBookModelBinder = rivets.bind($('#bookStore'), bookModel);
+        if (isAuthed) {
+            var $rating = $('.rating').rating();
+
+            $rating.each(function () {
+                var r = parseFloat($(this).val());
+                $('<span class="label label-default"></span>').text(r.toFixed(2) || ' ').insertAfter(this);
+            });
+
+            $rating.on('change', function () {
+                var rate = $(this).val();
+                $(this).next('.label').text(rate);
+                var bookId = $(this).parents('.item').get(0).getAttribute('bookid');
+                postRating(bookId, rate);
+            });
+
+        }
     });
 });
-
-/*function initBooks() {
-    $.get(
-        $('#bookListDataUrl').val(),
-        function(data) {
-            bookModel.books = data;
-        });
-}*/
 
 function postRating(bookId, rating) {
     $.post(
