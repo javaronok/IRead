@@ -48,7 +48,7 @@
         </div>
         <div class="collapse navbar-collapse" id="responsive-menu">
             <ul class="nav navbar-nav">
-                <li><a href="#">пункт 1</a></li>
+                <li><a href="<c:url value="/addbook" />">Добавить книгу</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">пункт 2 <b class="caret"></b></a>
                     <ul class="dropdown-menu">

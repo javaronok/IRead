@@ -64,6 +64,8 @@ public class AppWebMVCConfig extends WebMvcConfigurerAdapter {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/catalog").setViewName("catalog");
         registry.addViewController("/signup").setViewName("registration");
+        registry.addViewController("/addbook").setViewName("add_book");
+
     }
 
     @Bean
