@@ -9,10 +9,13 @@ import com.iread.service.IReadBooksService;
 import com.iread.service.RatingService;
 import com.iread.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +37,9 @@ public class IReadBookController {
     private UserService userService;
 
     @RequestMapping(value = "catalog", method = RequestMethod.GET)
-    public ModelAndView show(ModelMap model, Principal principal) {
+    public ModelAndView show(HttpServletRequest request,
+                             ModelMap model, Principal principal
+    ) {
         List<IReadBook> books = iReadBooksService.listBooks();
         List<BookForm> result = new ArrayList<>();
         for (IReadBook book : books) {
@@ -50,6 +55,13 @@ public class IReadBookController {
             List<IReadRating> iReadRatings = ratingService.getAllRatings();
             List<IReadBook> recms = recommendationService.getRecommendation(iReadRatings, user);
             model.put("recommendations", recms);
+        }
+
+        HttpSession session = request.getSession();
+        Exception authException = (Exception) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+        if (authException != null) {
+            model.put("errorMessage", "Неверный логин/пароль");
+            session.setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, null);
         }
 
         model.put("books", result);

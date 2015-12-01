@@ -16,6 +16,10 @@ a.spoiler.collapsed: after {
     margin-bottom: 15px;
 }
 
+.navbar {
+	border-radius: 0px;
+}
+
 @media screen and (max-width: 767px){
     .masonry[data-columns]::before {
         content: '1 .col-xs-12';
@@ -68,5 +72,18 @@ color: #FFF;
 
 #btn_up{
 	float: right;
+}
+
+.container {
+	width: 1270px;
+}
+
+.alert {
+	position: absolute;
+	z-index: 999999;
+	width: 800px;
+	top: 30px;
+	left: 20px;
+	right: 20px;
 
 }

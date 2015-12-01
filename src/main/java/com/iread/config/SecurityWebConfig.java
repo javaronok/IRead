@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
 @Configuration
 @Import({ AppWebMVCConfig.class })
@@ -56,7 +57,8 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
                         //.loginPage("/catalog")
                 .permitAll()
                 .successHandler(authenticationSuccessHandler)
-                .failureUrl("/login?error=true")
+                //.failureUrl("/catalog?error=true")
+                .failureHandler(new SimpleUrlAuthenticationFailureHandler("/catalog"))
                 .and()
                 .logout()
                 .logoutSuccessUrl("/catalog")

@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--@elvariable id="books" type="List<com.iread.form.BookForm>"--%>
 <%--@elvariable id="recommendations" type="List<com.iread.model.IReadBook>"--%>
+<%--@elvariable id="errorMessage" type="String>"--%>
 
 <sec:authorize var="isAuth" access="isAuthenticated()" />
 <sec:authentication var="principal" property="principal" />
@@ -49,7 +50,7 @@
         <div class="collapse navbar-collapse" id="responsive-menu">
             <ul class="nav navbar-nav">
                 <li><a href="<c:url value="/addbook" />">Добавить книгу</a></li>
-                <li class="dropdown">
+                <!--li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">пункт 2 <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">пункт 1</a></li>
@@ -59,7 +60,7 @@
                     </ul>
                 </li>
                 <li><a href="#">пункт 3</a></li>
-                <li><a href="#">пункт 4</a></li>
+                <li><a href="#">пункт 4</a></li-->
             </ul>
             <c:choose>
                 <c:when test="${isAuth}">
@@ -76,26 +77,41 @@
                 </c:when>
                 <c:otherwise>
                     <div class="navbar-right">
-                    <form action="<c:url value='/j_spring_security_check' />" method="POST" class="navbar-form">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="user" name="j_username" placeholder="E-mail" value="">
+                        <div class="row">
+                            <section class="col-lg-9">
+                                <form action="<c:url value='/j_spring_security_check' />" method="POST" class="navbar-form" style="width:530px">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="user" name="j_username"
+                                               placeholder="E-mail" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" id="password" name="j_password"
+                                               placeholder="Пароль" value="">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-sign-in"></i> ВОЙТИ
+                                    </button>
+                                </form>
+                            </section>
+                            <!--button class="btn btn-primary"-->
+                            <section class="col-lg-3 navbar-form">
+                                <a class="btn btn-primary" href="<c:url value="/signup"/>"><i class="fa fa-sign-in"></i> РЕГИСТРАЦИЯ</a>
+                            </section>
+                            <!--/button-->
                         </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="password" name="j_password" placeholder="Пароль" value="">
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-sign-in"></i> ВОЙТИ
-                        </button>
-                    </form>
-                    <!--button class="btn btn-primary"-->
-                        <a class="btn btn-primary" href="<c:url value="/signup"/>"><i class="fa fa-sign-in"></i> РЕГИСТРАЦИЯ</a>
-                    <!--/button-->
                     </div>
                 </c:otherwise>
             </c:choose>
         </div>
     </div>
 </div>
+
+<c:if test="${not empty errorMessage}">
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Внимание!</strong> ${errorMessage}.
+    </div>
+</c:if>
 
 <div id="carousel" class="carousel slide">
     <!--индикаторы слайдов-->
@@ -174,17 +190,22 @@
 
                         <div class="caption">
                             <h3><a href="#">${item.book.bookName}</a></h3>
-
-                            <div style="display: inline-block; position: relative;" class="rating-symbol">
-                                <div style="visibility: hidden;" class="rating-symbol-background glyphicon glyphicon-star-empty"></div>
-                                <div style="display: inline-block; position: absolute; overflow: hidden; left: 0px; right: 0px; width: auto;" class="rating-symbol-foreground">
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </div>
-                            </div>
-                            <span class="avg-rating label label-default">${item.avgRating}</span>
+                            <c:choose>
+                                <c:when test="${not empty item.avgRating}">
+                                    <div style="display: inline-block; position: relative;" class="rating-symbol">
+                                        <div style="visibility: hidden;"
+                                             class="rating-symbol-background glyphicon glyphicon-star-empty"></div>
+                                        <div style="display: inline-block; position: absolute; overflow: hidden; left: 0px; right: 0px; width: auto;"
+                                             class="rating-symbol-foreground">
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        </div>
+                                    </div>
+                                    <span class="avg-rating label label-default">${item.avgRating}</span>
+                                </c:when>
+                            </c:choose>
 
                             <p>${item.book.annotation}</p>
-                            <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
+                            <!--a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a-->
                             <c:choose>
                             <c:when test="${isAuth}">
                                 <input type="hidden" class="rating" data-fractions="4" value="${item.avgRating}"  />
@@ -219,66 +240,7 @@
     </div>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="container">
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="#">Элемент 1 <span class="badge">18</span></a>
-                </li>
-                <li>
-                    <a href="#">Элемент 2 <span class="badge">12</span></a>
-                </li>
-                <li>
-                    <a href="#">Элемент 3 <span class="badge">28</span></a>
-                </li>
-                <li>
-                    <a href="#">Элемент 4 <span class="badge">30</span></a>
-                </li>
-            </ul>
-        </div>
-    </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="item">
-                    <div class="thumbnail">
-                        <p id="reg-header">Регистрация
-
-                        <p>
-
-                        <form id="form1" name="form1" method="post">
-                            <p class="reg_login">Логин:<input type="text" name="name" id="log_name" size="40"/></p>
-
-                            <p class="reg_login">Пароль:<input type="password" name="pass" id="pass" size="20"/></p>
-
-                            <p class="reg_item">Пол:<br/>
-                                <input type="radio" name="number" value="first" checked="checked"/>Мужской<br/>
-                                <input type="radio" name="number" value="second"/>Женский<br/>
-                            </p>
-
-                            <p class="reg_item">Любимые жанры:<br/>
-                                <input type="checkbox" name="genre" value="guitar" checked="checked"/>Комедия<br/>
-                                <input type="checkbox" name="genre" value="violin"/>Трагедия<br/>
-                                <input type="checkbox" name="genre" value="flute"/>Драма
-                            </p>
-
-                            <p>
-                                <input type="submit" name="button3" value="Зарегестрироваться"/>
-                                <input type="reset" name="button4" value="Сброс данных"/></p>
-
-                        </form>
-                        <!--/div-->
-                    </div>
-                </div>
-                <div class="col-sm-6">
-
-                </div>
-            </div>
-        </div>
-
-    </div>
 
     <div class="navbar navbar-inverse navbar-static-bottom">
         <div id="footer" class="container">
