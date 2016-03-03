@@ -7,7 +7,7 @@ import com.iread.model.User;
 import com.iread.security.UserService;
 import com.iread.service.IReadBooksService;
 import com.iread.service.RatingService;
-import com.iread.service.RecommendationService;
+import com.iread.service.collabr.CollaborativeRecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.ui.ModelMap;
@@ -28,7 +28,7 @@ public class IReadBookController {
     private IReadBooksService iReadBooksService;
 
     @Autowired
-    private RecommendationService recommendationService;
+    private CollaborativeRecommendationService collaborativeRecommendationService;
 
     @Autowired
     private RatingService ratingService;
@@ -53,7 +53,7 @@ public class IReadBookController {
         if (principal != null) {
             User user = userService.getUserByName(principal.getName());
             List<IReadRating> iReadRatings = ratingService.getAllRatings();
-            List<IReadBook> recms = recommendationService.getRecommendation(iReadRatings, user);
+            List<IReadBook> recms = collaborativeRecommendationService.getRecommendation(iReadRatings, user);
             model.put("recommendations", recms);
         }
 

@@ -2,6 +2,8 @@ package com.iread.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -22,6 +24,12 @@ public class IReadBook {
 
     @Column(name = "ANNOTATION", columnDefinition = "text")
     private String annotation;
+
+    @ManyToMany
+    @JoinTable(name = "book_tags",
+            joinColumns = {@JoinColumn(name = "book_id", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id", referencedColumnName = "ID")})
+    Set<IReadTag> tags = new LinkedHashSet<>();
 
     public Long getId() {
         return id;
@@ -61,5 +69,21 @@ public class IReadBook {
 
     public void setAnnotation(String annotation) {
         this.annotation = annotation;
+    }
+
+    public Integer getPublicationYear() {
+        return publicationYear;
+    }
+
+    public void setPublicationYear(Integer publicationYear) {
+        this.publicationYear = publicationYear;
+    }
+
+    public Set<IReadTag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<IReadTag> tags) {
+        this.tags = tags;
     }
 }

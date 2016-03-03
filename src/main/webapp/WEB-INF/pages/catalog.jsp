@@ -231,7 +231,7 @@
                             <h3><a href="#">${book.bookName}</a></h3>
 
                             <p>${book.annotation}</p>
-                            <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
+                            <!--a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a-->
                         </div>
                     </div>
                 </div>

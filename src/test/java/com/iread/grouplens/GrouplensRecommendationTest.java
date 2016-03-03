@@ -1,12 +1,8 @@
-package com.iread.service;
+package com.iread.grouplens;
 
-import com.iread.model.IReadBook;
-import com.iread.model.IReadRating;
-import com.iread.model.User;
-import com.iread.repository.IReadBookRepository;
-import com.iread.repository.IReadRatingRepository;
 import org.grouplens.lenskit.vectors.similarity.PearsonCorrelation;
 import org.grouplens.lenskit.vectors.similarity.VectorSimilarity;
+import org.junit.Test;
 import org.lenskit.LenskitConfiguration;
 import org.lenskit.LenskitRecommender;
 import org.lenskit.LenskitRecommenderEngine;
@@ -19,22 +15,42 @@ import org.lenskit.knn.user.LiveNeighborFinder;
 import org.lenskit.knn.user.NeighborFinder;
 import org.lenskit.knn.user.UserSimilarity;
 import org.lenskit.knn.user.UserUserItemScorer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-public class RecommendationService {
+/**
+ * Created by Dmitriy on 28.02.2016.
+ */
+public class GrouplensRecommendationTest {
+    @Test
+    public void recommendationTest() {
+        List<Rating> rs = new ArrayList<Rating>();
+        rs.add(Rating.create(1, 1, 5));
+        rs.add(Rating.create(1, 2, 4));
+        rs.add(Rating.create(1, 3, 5));
+        rs.add(Rating.create(2, 1, 4));
+        rs.add(Rating.create(2, 3, 5));
+        rs.add(Rating.create(3, 2, 3));
+        rs.add(Rating.create(3, 3, 5));
+        rs.add(Rating.create(3, 5, 4));
+        rs.add(Rating.create(4, 4, 3));
+        rs.add(Rating.create(4, 5, 4));
+        rs.add(Rating.create(5, 3, 4));
+        rs.add(Rating.create(5, 4, 2));
+        rs.add(Rating.create(5, 5, 4));
+        rs.add(Rating.create(6, 1, 3));
+        rs.add(Rating.create(6, 6, 5));
 
-    @Autowired
-    private IReadBookRepository iReadBookRepository;
+        for (long uuid = 1; uuid < 7; uuid++) {
+            List<Long> recs = getRecommendations(rs, uuid);
+            System.out.println("UID: " + uuid + ", recommendations: " + recs);
+        }
+    }
 
-    public List<IReadBook> getRecommendation(List<IReadRating> rs, User user) {
-        List<Rating> ratings = compileRatings(rs);
-
-        EventDAO dao = new EventCollectionDAO(ratings);
+    private static List<Long> getRecommendations(List<Rating> rs, Long user) {
+        EventDAO dao = new EventCollectionDAO(rs);
         LenskitConfiguration config = new LenskitConfiguration();
         config.bind(EventDAO.class).to(dao);
         config.bind(ItemScorer.class).to(UserUserItemScorer.class);
@@ -49,24 +65,8 @@ public class RecommendationService {
         ItemRecommender recommender = rec.getItemRecommender();
         assert recommender != null;
 
-        List<Long> recs = recommender.recommend(user.getId());
-
-        List<IReadBook> rBooks = new ArrayList<>();
-
-        for (Long rId : recs) {
-            rBooks.add(iReadBookRepository.findOne(rId));
-        }
-        return rBooks;
-    }
-
-    private List<Rating> compileRatings(List<IReadRating> ratings) {
-        List<Rating> rs = new ArrayList<Rating>();
-
-        for (IReadRating r : ratings) {
-            rs.add(Rating.create(r.getUser().getId(), r.getBook().getId(), r.getRate()));
-        }
-
-        return rs;
+        return recommender.recommend(user);
     }
 
 }
+
