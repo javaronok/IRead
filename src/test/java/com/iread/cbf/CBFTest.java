@@ -8,10 +8,7 @@ import org.grouplens.lenskit.scored.ScoredId;
 import org.junit.Test;
 import org.lenskit.LenskitConfiguration;
 import org.lenskit.LenskitRecommender;
-import org.lenskit.api.ItemRecommender;
-import org.lenskit.api.ItemScorer;
-import org.lenskit.api.Recommender;
-import org.lenskit.api.RecommenderBuildException;
+import org.lenskit.api.*;
 import org.lenskit.data.dao.EventCollectionDAO;
 import org.lenskit.data.dao.EventDAO;
 import org.lenskit.data.dao.ItemDAO;
@@ -63,8 +60,13 @@ public class CBFTest {
         ItemRecommender irec = rec.getItemRecommender();
 
         for (Long userId : createUserCollection(rs)) {
-            List<Long> rcs = irec.recommend(userId);
-            System.out.println("User ID: " + userId + ", recommendations: " + rcs);
+            ResultList recs = irec.recommendWithDetails(userId, 100, null, null);
+            StringBuilder sb = new StringBuilder();
+            for (Result r : recs) {
+                sb.append(", ").append("score(").append(r.getId()).append(")").append(" = ").append(r.getScore());
+            }
+            String log = "[" + sb.substring(2) + "]";
+            System.out.print("User ID: " + userId + ", recommendations: " + log);
         }
 
     }

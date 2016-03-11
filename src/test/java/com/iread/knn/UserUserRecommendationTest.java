@@ -10,6 +10,8 @@ import org.lenskit.LenskitRecommender;
 import org.lenskit.LenskitRecommenderEngine;
 import org.lenskit.api.ItemRecommender;
 import org.lenskit.api.ItemScorer;
+import org.lenskit.api.Result;
+import org.lenskit.api.ResultList;
 import org.lenskit.data.dao.EventCollectionDAO;
 import org.lenskit.data.dao.EventDAO;
 import org.lenskit.data.ratings.Rating;
@@ -43,12 +45,17 @@ public class UserUserRecommendationTest {
         rs.add(Rating.create(6, 6, 5));
 
         for (long uuid = 1; uuid < 7; uuid++) {
-            List<Long> recs = getRecommendations(rs, uuid);
-            System.out.println("UID: " + uuid + ", recommendations: " + recs);
+            ResultList recs = getRecommendations(rs, uuid);
+            StringBuilder sb = new StringBuilder();
+            for (Result r : recs) {
+               sb.append(", ").append("score(").append(r.getId()).append(")").append(" = ").append(r.getScore());
+            }
+            String log = "[" + sb.substring(2) + "]";
+            System.out.println("UID: " + uuid + ", recommendations: " + log);
         }
     }
 
-    private static List<Long> getRecommendations(List<Rating> rs, Long user) {
+    private static ResultList getRecommendations(List<Rating> rs, Long user) {
         EventDAO dao = new EventCollectionDAO(rs);
         LenskitConfiguration config = new LenskitConfiguration();
         config.bind(EventDAO.class).to(dao);
@@ -64,6 +71,6 @@ public class UserUserRecommendationTest {
         ItemRecommender recommender = rec.getItemRecommender();
         assert recommender != null;
 
-        return recommender.recommend(user);
+        return recommender.recommendWithDetails(user, 100, null, null);
     }
 }
