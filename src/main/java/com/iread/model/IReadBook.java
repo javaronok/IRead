@@ -3,6 +3,7 @@ package com.iread.model;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -85,5 +86,18 @@ public class IReadBook {
 
     public void setTags(Set<IReadTag> tags) {
         this.tags = tags;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof IReadBook)) return false;
+        IReadBook book = (IReadBook) o;
+        return Objects.equals(id, book.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

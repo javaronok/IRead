@@ -5,6 +5,7 @@ import com.iread.model.IReadBook;
 import com.iread.model.IReadRating;
 import com.iread.model.User;
 import com.iread.security.UserService;
+import com.iread.service.CompositeRecommendationService;
 import com.iread.service.IReadBooksService;
 import com.iread.service.RatingService;
 import com.iread.service.collabr.CollaborativeRecommendationService;
@@ -28,7 +29,7 @@ public class IReadBookController {
     private IReadBooksService iReadBooksService;
 
     @Autowired
-    private CollaborativeRecommendationService collaborativeRecommendationService;
+    private CompositeRecommendationService compositeRecommendationService;
 
     @Autowired
     private RatingService ratingService;
@@ -53,7 +54,7 @@ public class IReadBookController {
         if (principal != null) {
             User user = userService.getUserByName(principal.getName());
             List<IReadRating> iReadRatings = ratingService.getAllRatings();
-            List<IReadBook> recms = collaborativeRecommendationService.getRecommendation(iReadRatings, user);
+            List<IReadBook> recms = compositeRecommendationService.getRecommendation(books, iReadRatings, user);
             model.put("recommendations", recms);
         }
 

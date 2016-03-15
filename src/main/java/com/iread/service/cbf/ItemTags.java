@@ -25,6 +25,10 @@ public class ItemTags {
     }
 
     public static ItemTags createItemTags(Long item, String... tags) {
-        return new ItemTags(item, Arrays.asList(tags));
+        return createItemTags(item, Arrays.asList(tags));
+    }
+
+    public static ItemTags createItemTags(Long item, List<String> tags) {
+        return new ItemTags(item, tags);
     }
 }
