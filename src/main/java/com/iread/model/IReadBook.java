@@ -20,10 +20,10 @@ public class IReadBook {
     @Column(name = "BOOK_AUTHOR")
     private String bookAuthor;
 
-    @Column(name = "PUBLICATION_YEAR", columnDefinition = "int")
+    @Column(name = "PUBLICATION_YEAR", columnDefinition = "smallint")
     private Integer publicationYear;
 
-    @Column(name = "ANNOTATION", columnDefinition = "text")
+    @Column(name = "ANNOTATION", columnDefinition = "blob")
     private String annotation;
 
     @ManyToMany

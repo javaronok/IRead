@@ -1,6 +1,7 @@
 package com.iread.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "rating")
@@ -18,8 +19,8 @@ public class IReadRating {
     @JoinColumn(name = "book_id", columnDefinition = "bigint", referencedColumnName = "id")
     private IReadBook book;
 
-    @Column(name = "rate")
-    private Integer rate;
+    @Column(name = "rate", columnDefinition = "numeric")
+    private BigDecimal rate;
 
     public Long getId() {
         return id;
@@ -45,11 +46,11 @@ public class IReadRating {
         this.book = book;
     }
 
-    public Integer getRate() {
+    public BigDecimal getRate() {
         return rate;
     }
 
-    public void setRate(Integer rate) {
+    public void setRate(BigDecimal rate) {
         this.rate = rate;
     }
 }

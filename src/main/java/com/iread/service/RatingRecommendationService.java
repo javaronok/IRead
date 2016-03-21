@@ -12,7 +12,7 @@ public class RatingRecommendationService {
         List<Rating> rs = new ArrayList<Rating>();
 
         for (IReadRating r : ratings) {
-            rs.add(Rating.create(r.getUser().getId(), r.getBook().getId(), r.getRate()));
+            rs.add(Rating.create(r.getUser().getId(), r.getBook().getId(), r.getRate().doubleValue()));
         }
 
         return rs;
