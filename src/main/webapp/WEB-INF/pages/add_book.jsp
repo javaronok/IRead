@@ -20,6 +20,7 @@
   <link href="css/font-awesome.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
   <link href="css/bootstrap-rating.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css"/>
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,6 +30,8 @@
   <![endif]-->
 </head>
 <body>
+<input id="tagsGetUrl" type="hidden" value="<c:url value="/tags"/>" />
+<input id="postBookUrl" type="hidden" value="<c:url value="/book_persist"/>" />
 
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
@@ -88,39 +91,43 @@
 </div>
 
 <div class="container">
-  <form:form class="form-horizontal" method="POST" commandName="userAddBook" action="book_save">
+  <form class="form-horizontal">
     <h4 class="muted offset1">Добавление книги:</h4>
     <div class="control-group">
       <label class="control-label" for="bookName">Название книги</label>
       <div class="controls">
-        <form:input type="text" id="bookName" placeholder="Название книги" path="bookName"/>
+        <input type="text" id="bookName" placeholder="Название книги" path="bookName"/>
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="bookAuthor">Имя автора</label>
       <div class="controls">
-        <form:input type="text" id="bookAuthor" placeholder="Имя автора" path="bookAuthor"/>
+        <input type="text" id="bookAuthor" placeholder="Имя автора" path="bookAuthor"/>
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="bookYear">Год издания</label>
       <div class="controls">
-        <form:input id="bookYear" placeholder="Год издания" path="bookYear"/>
+        <input id="bookYear" placeholder="Год издания" path="bookYear"/>
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="bookAnnotation">Аннотация</label>
       <div class="controls">
-        <form:textarea id="bookAnnotation" placeholder="Аннотация" rows="5" cols="40" path="bookAnnotation"/>
+        <textarea id="bookAnnotation" placeholder="Аннотация" rows="5" cols="40" path="bookAnnotation"></textarea>
       </div>
+    </div>
+
+    <div>
+      <select id="book-tags" multiple="multiple"></select>
     </div>
 
     <div class="control-group">
       <div class="span5">
-        <button type="submit" class="btn btn-primary btn-small pull-right">Добавить книгу на сайт</button>
+        <button id="addBookBtn" class="btn btn-primary btn-small pull-right">Добавить книгу на сайт</button>
       </div>
     </div>
-  </form:form>
+  </form>
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -129,7 +136,8 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/salvattore.min.js"></script>
 <script src="js/bootstrap-rating.js"></script>
-<script src="js/catalog.js"></script>
+<script src="js/bootstrap-multiselect.js"></script>
+<script src="js/add-book.js"></script>
 <script src="js/rivets.js"></script>
 <!--script src="js/jquery-2.1.4.js"></script-->
 </body>

@@ -10,8 +10,9 @@ import java.util.Set;
 @Table(name = "books")
 public class IReadBook {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
+    @SequenceGenerator(name = "PKIReadBook", sequenceName = "SEQ_BOOKS", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PKIReadBook")
     private Long id;
 
     @Column(name = "BOOK_NAME")

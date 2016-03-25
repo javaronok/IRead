@@ -3,10 +3,12 @@ package com.iread.controller;
 import com.iread.form.BookForm;
 import com.iread.model.IReadBook;
 import com.iread.model.IReadRating;
+import com.iread.model.IReadTag;
 import com.iread.model.User;
 import com.iread.security.UserService;
 import com.iread.service.CompositeRecommendationService;
 import com.iread.service.IReadBooksService;
+import com.iread.service.IReadTagService;
 import com.iread.service.RatingService;
 import com.iread.service.collabr.CollaborativeRecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class IReadBookController {
 
     @Autowired
     private IReadBooksService iReadBooksService;
+
+    @Autowired
+    private IReadTagService iReadTagsService;
 
     @Autowired
     private CompositeRecommendationService compositeRecommendationService;
@@ -90,5 +95,12 @@ public class IReadBookController {
 
         ratingService.postBookRating(user, book, rate);
         return "200";
+    }
+
+    @RequestMapping(value = "tags", method = RequestMethod.GET)
+    @ResponseBody
+    public List<IReadTag> getTags(Principal principal) throws IllegalAccessException {
+        List<IReadTag> tags = iReadTagsService.listTags();
+        return tags;
     }
 }

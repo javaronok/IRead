@@ -29,12 +29,13 @@ public class IReadBooksService {
         }
     }
 
-    public IReadBook saveBook (UserAddBookForm form) {
+    public IReadBook saveBook(UserAddBookForm form) {
         IReadBook book = new IReadBook();
         book.setBookName(form.getBookName());
         book.setBookAuthor(form.getBookAuthor());
         book.setPublicationDate(form.getBookYear());
         book.setAnnotation(form.getBookAnnotation());
+        book.setTags(form.getTags());
 
         repository.save(book);
         return book;
