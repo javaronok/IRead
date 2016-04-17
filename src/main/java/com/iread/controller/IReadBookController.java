@@ -9,6 +9,7 @@ import com.iread.service.IReadBooksService;
 import com.iread.service.RatingService;
 import com.iread.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +59,7 @@ public class IReadBookController {
             model.put("recommendations", recms);
         }
 
+        // Получение ошибки из сессии
         HttpSession session = request.getSession();
         Exception authException = (Exception) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
         if (authException != null) {
@@ -75,10 +78,10 @@ public class IReadBookController {
         return books;
     }*/
 
-    @RequestMapping(value = "rating", method = RequestMethod.POST)
+    @RequestMapping(value = "rating", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String postBookRating(@RequestParam("book") IReadBook book,
-                                 @RequestParam("rate") Integer rate,
+                                 @RequestParam("rate") BigDecimal rate,
                                  Principal principal
     ) throws IllegalAccessException {
         if (principal == null)
@@ -87,7 +90,7 @@ public class IReadBookController {
         String userName = principal.getName();
         User user = userService.getUserByName(userName);
 
-        ratingService.postBookRating(user, book, rate);
-        return "200";
+        ratingService.postBookRating(user, book, rate.intValue());
+        return HttpStatus.OK.getReasonPhrase();
     }
 }

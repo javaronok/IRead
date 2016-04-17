@@ -45,6 +45,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
                 .headers().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/rating").permitAll()
+                .antMatchers(HttpMethod.POST, "/book_save").permitAll()
                 .antMatchers("/signup").permitAll()
                 .antMatchers("/catalog").permitAll()
                 .antMatchers("/addbook").permitAll()

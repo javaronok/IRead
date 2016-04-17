@@ -28,11 +28,13 @@ $(function(){
 });
 
 function postRating(bookId, rating) {
-    $.post(
-            $('#ratingPostUrl').val(),
-            {
-                book: bookId,
-                rate: rating
-            }
-    )
+    $.ajax({
+        type: "POST",
+        url: $('#ratingPostUrl').val(),
+        dataType: "json",
+        data:{
+            book: bookId,
+            rate: rating
+        }
+    });
 }
