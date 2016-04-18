@@ -3,11 +3,14 @@ package com.iread.controller;
 import com.iread.form.BookForm;
 import com.iread.model.IReadBook;
 import com.iread.model.IReadRating;
+import com.iread.model.IReadTag;
 import com.iread.model.User;
 import com.iread.security.UserService;
+import com.iread.service.CompositeRecommendationService;
 import com.iread.service.IReadBooksService;
+import com.iread.service.IReadTagService;
 import com.iread.service.RatingService;
-import com.iread.service.RecommendationService;
+import com.iread.service.collabr.CollaborativeRecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.WebAttributes;
@@ -30,7 +33,10 @@ public class IReadBookController {
     private IReadBooksService iReadBooksService;
 
     @Autowired
-    private RecommendationService recommendationService;
+    private IReadTagService iReadTagsService;
+
+    @Autowired
+    private CompositeRecommendationService compositeRecommendationService;
 
     @Autowired
     private RatingService ratingService;
@@ -55,7 +61,7 @@ public class IReadBookController {
         if (principal != null) {
             User user = userService.getUserByName(principal.getName());
             List<IReadRating> iReadRatings = ratingService.getAllRatings();
-            List<IReadBook> recms = recommendationService.getRecommendation(iReadRatings, user);
+            List<IReadBook> recms = compositeRecommendationService.getRecommendation(books, iReadRatings, user);
             model.put("recommendations", recms);
         }
 
@@ -92,5 +98,12 @@ public class IReadBookController {
 
         ratingService.postBookRating(user, book, rate.intValue());
         return HttpStatus.OK.getReasonPhrase();
+    }
+
+    @RequestMapping(value = "tags", method = RequestMethod.GET)
+    @ResponseBody
+    public List<IReadTag> getTags(Principal principal) throws IllegalAccessException {
+        List<IReadTag> tags = iReadTagsService.listTags();
+        return tags;
     }
 }

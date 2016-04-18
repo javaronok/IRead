@@ -107,7 +107,7 @@ public class AppWebMVCConfig extends WebMvcConfigurerAdapter {
         bean.setUrl(databaseUrl);
         bean.setUsername(dbUsername);
         bean.setPassword(dbPassword);
-        bean.setValidationQuery("SELECT 1");
+        bean.setValidationQuery("SELECT 1 FROM RDB$DATABASE");
         bean.setTestWhileIdle(true);
         bean.setTimeBetweenEvictionRunsMillis(5000);
         bean.setMaxActive(100);
@@ -139,7 +139,7 @@ public class AppWebMVCConfig extends WebMvcConfigurerAdapter {
                 dataSource);
 
         sessionBuilder.scanPackages("com.iread.model");
-        sessionBuilder.addProperties(hibernateProperties);
+        sessionBuilder.addProperties(hibernateProperties());
         return sessionBuilder.buildSessionFactory();
     }
 

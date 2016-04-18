@@ -38,7 +38,7 @@ public class RatingService {
             rating.setUser(user);
             rating.setBook(book);
         }
-        rating.setRate(rate);
+        rating.setRate(new BigDecimal(rate));
 
         iReadRatingRepository.save(rating);
     }

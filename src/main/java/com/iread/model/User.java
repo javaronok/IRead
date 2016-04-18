@@ -30,7 +30,7 @@ public class User implements Serializable, UserDetails {
     @Column(name = "last_name", length = 50, nullable = false)
     private String lastName;
 
-    @Column(name = "enabled", columnDefinition = "BIT", length = 1)
+    @Column(name = "enabled", columnDefinition = "smallint", length = 1)
     private Boolean enabled;
 
     public Long getId() {
