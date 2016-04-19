@@ -170,7 +170,7 @@
             <!--div rv-each-book="books">
                 <div class="item">
                     <div class="thumbnail">
-                        <img src="http://placehold.it/600x340" alt="" class="img-responsive">
+                        <img src="images/placeholder.png" alt="" class="img-responsive">
 
                         <div class="caption">
                             <h3><a href="#">{book.bookName}</a></h3>
@@ -186,7 +186,7 @@
             <c:forEach var="item" items="${books}">
                 <div class="item" bookId="${item.book.id}">
                     <div class="thumbnail">
-                        <img src="http://placehold.it/600x340" alt="" class="img-responsive">
+                        <img src="images/placeholder.png" alt="" class="img-responsive">
 
                         <div class="caption">
                             <h3><a href="#">${item.book.bookName}</a></h3>
@@ -225,7 +225,7 @@
             <c:forEach var="book" items="${recommendations}">
                 <div class="item">
                     <div class="thumbnail">
-                        <img src="http://placehold.it/600x340" alt="" class="img-responsive">
+                        <img src="images/placeholder.png" alt="" class="img-responsive">
 
                         <div class="caption">
                             <h3><a href="#">${book.bookName}</a></h3>
@@ -253,7 +253,8 @@
     </div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script-->
+<script src="js/jquery-1.11.3.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.js"></script>
 <script src="js/salvattore.min.js"></script>

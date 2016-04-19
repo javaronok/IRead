@@ -96,7 +96,7 @@ public class IReadBookController {
         String userName = principal.getName();
         User user = userService.getUserByName(userName);
 
-        ratingService.postBookRating(user, book, rate.intValue());
+        ratingService.postBookRating(user, book, rate);
         return HttpStatus.OK.getReasonPhrase();
     }
 

@@ -31,14 +31,14 @@ public class RatingService {
     }
 
     @Transactional(readOnly = false)
-    public void postBookRating(User user, IReadBook book, Integer rate) {
+    public void postBookRating(User user, IReadBook book, BigDecimal rate) {
         IReadRating rating = lookupRating(user, book);
         if (rating == null) {  // Не нашли
             rating = new IReadRating();
             rating.setUser(user);
             rating.setBook(book);
         }
-        rating.setRate(new BigDecimal(rate));
+        rating.setRate(rate);
 
         iReadRatingRepository.save(rating);
     }

@@ -7,8 +7,9 @@ import java.math.BigDecimal;
 @Table(name = "rating")
 public class IReadRating {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
+    @SequenceGenerator(name = "PKIReadRating", sequenceName = "SEQ_RATING", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PKIReadRating")
     private Long id;
 
     @ManyToOne
