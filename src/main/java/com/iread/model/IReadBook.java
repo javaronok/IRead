@@ -18,8 +18,14 @@ public class IReadBook {
     @Column(name = "BOOK_NAME")
     private String bookName;
 
-    @Column(name = "BOOK_AUTHOR")
-    private String bookAuthor;
+    @Column(name = "AUTHOR_FIRSTNAME")
+    private String authorFirstName;
+
+    @Column(name = "AUTHOR_LASTNAME")
+    private String authorLastName;
+
+    @Column(name = "AUTHOR_PATRONYMIC")
+    private String authorPatronymic;
 
     @Column(name = "PUBLICATION_YEAR", columnDefinition = "smallint")
     private Integer publicationYear;
@@ -47,14 +53,6 @@ public class IReadBook {
 
     public void setBookName(String bookName) {
         this.bookName = bookName;
-    }
-
-    public String getBookAuthor() {
-        return bookAuthor;
-    }
-
-    public void setBookAuthor(String bookAuthor) {
-        this.bookAuthor = bookAuthor;
     }
 
     public Integer getPublicationDate() {
@@ -87,6 +85,53 @@ public class IReadBook {
 
     public void setTags(Set<IReadTag> tags) {
         this.tags = tags;
+    }
+
+    public String getAuthorFirstName() {
+        return authorFirstName;
+    }
+
+    public void setAuthorFirstName(String authorFirstName) {
+        this.authorFirstName = authorFirstName;
+    }
+
+    public String getAuthorLastName() {
+        return authorLastName;
+    }
+
+    public void setAuthorLastName(String authorLastName) {
+        this.authorLastName = authorLastName;
+    }
+
+    public String getAuthorPatronymic() {
+        return authorPatronymic;
+    }
+
+    public void setAuthorPatronymic(String authorPatronymic) {
+        this.authorPatronymic = authorPatronymic;
+    }
+
+    public String getAuthorName() {
+        StringBuilder sb = new StringBuilder();
+
+        if (getAuthorLastName() != null)
+          sb.append(getAuthorLastName());
+
+        if (getAuthorFirstName() != null) {
+            if (sb.length() > 0)
+                sb.append(" ");
+
+            sb.append(getAuthorFirstName());
+        }
+
+        if (getAuthorPatronymic() != null) {
+            if (sb.length() > 0)
+                sb.append(" ");
+
+            sb.append(getAuthorPatronymic());
+        }
+
+        return sb.toString();
     }
 
     @Override

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Dmitriy on 28.02.2016.
+ * Created by Angelina on 28.02.2016.
  */
 public class ItemTags {
     Long itemId;

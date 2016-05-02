@@ -190,6 +190,7 @@
 
                         <div class="caption">
                             <h3><a href="#">${item.book.bookName}</a></h3>
+                            <h4><a href="#">${item.book.authorName}</a></h4>
                             <c:choose>
                                 <c:when test="${not empty item.avgRating}">
                                     <div style="display: inline-block; position: relative;" class="rating-symbol">
@@ -229,9 +230,11 @@
 
                         <div class="caption">
                             <h3><a href="#">${book.bookName}</a></h3>
+                            <h4><a href="#">${item.book.authorName}</a></h4>
 
                             <p>${book.annotation}</p>
                             <!--a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a-->
+                            <!-- TODO: Средний рейтинг -->
                         </div>
                     </div>
                 </div>

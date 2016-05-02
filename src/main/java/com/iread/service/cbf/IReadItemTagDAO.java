@@ -7,7 +7,7 @@ import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import java.util.*;
 
 /**
- * Created by Dmitriy on 28.02.2016.
+ * Created by Angelina on 28.02.2016.
  */
 public class IReadItemTagDAO extends IReadItemDAO implements ItemTagDAO {
     private transient volatile Long2ObjectMap<List<String>> tagCache;

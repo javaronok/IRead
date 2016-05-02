@@ -6,7 +6,9 @@ import java.util.Set;
 
 public class UserAddBookForm {
     private String bookName;
-    private String bookAuthor;
+    private String authorLastName;
+    private String authorFirstName;
+    private String authorPatronymic;
     private Integer bookYear;
     private String bookAnnotation;
     private Set<IReadTag> tags;
@@ -19,12 +21,28 @@ public class UserAddBookForm {
         this.bookName = bookName;
     }
 
-    public String getBookAuthor() {
-        return bookAuthor;
+    public String getAuthorLastName() {
+        return authorLastName;
     }
 
-    public void setBookAuthor(String bookAuthor) {
-        this.bookAuthor = bookAuthor;
+    public void setAuthorLastName(String authorLastName) {
+        this.authorLastName = authorLastName;
+    }
+
+    public String getAuthorFirstName() {
+        return authorFirstName;
+    }
+
+    public void setAuthorFirstName(String authorFirstName) {
+        this.authorFirstName = authorFirstName;
+    }
+
+    public String getAuthorPatronymic() {
+        return authorPatronymic;
+    }
+
+    public void setAuthorPatronymic(String authorPatronymic) {
+        this.authorPatronymic = authorPatronymic;
     }
 
     public Integer getBookYear() {

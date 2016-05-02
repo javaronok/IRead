@@ -32,7 +32,9 @@ public class IReadBooksService {
     public IReadBook saveBook(UserAddBookForm form) {
         IReadBook book = new IReadBook();
         book.setBookName(form.getBookName());
-        book.setBookAuthor(form.getBookAuthor());
+        book.setAuthorLastName(form.getAuthorLastName());
+        book.setAuthorFirstName(form.getAuthorFirstName());
+        book.setAuthorPatronymic(form.getAuthorPatronymic());
         book.setPublicationDate(form.getBookYear());
         book.setAnnotation(form.getBookAnnotation());
         book.setTags(form.getTags());

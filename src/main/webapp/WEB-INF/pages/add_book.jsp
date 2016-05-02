@@ -100,9 +100,21 @@
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label" for="bookAuthor">Имя автора</label>
+      <label class="control-label" for="authorLastName">Фамилия автора</label>
       <div class="controls">
-        <input type="text" id="bookAuthor" placeholder="Имя автора" path="bookAuthor"/>
+        <input type="text" id="authorLastName" placeholder="Фамилия автора" path="authorLastName"/>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="authorFirstName">Имя автора</label>
+      <div class="controls">
+        <input type="text" id="authorFirstName" placeholder="Имя автора" path="authorFirstName"/>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="authorPatronymic">Отчество автора</label>
+      <div class="controls">
+        <input type="text" id="authorPatronymic" placeholder="Отчество автора" path="authorPatronymic"/>
       </div>
     </div>
     <div class="control-group">
