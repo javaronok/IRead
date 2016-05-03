@@ -248,7 +248,6 @@
 
                             <p>${item.book.annotation}</p>
                             <!--a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a-->
-                            <!-- TODO: Средний рейтинг -->
                         </div>
                     </div>
                 </div>
