@@ -10,7 +10,6 @@ import com.iread.service.CompositeRecommendationService;
 import com.iread.service.IReadBooksService;
 import com.iread.service.IReadTagService;
 import com.iread.service.RatingService;
-import com.iread.service.collabr.CollaborativeRecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.WebAttributes;
@@ -62,7 +61,16 @@ public class IReadBookController {
             User user = userService.getUserByName(principal.getName());
             List<IReadRating> iReadRatings = ratingService.getAllRatings();
             List<IReadBook> recms = compositeRecommendationService.getRecommendation(books, iReadRatings, user);
-            model.put("recommendations", recms);
+            List<BookForm> rec_result = new ArrayList<>();
+            for (IReadBook book : recms) {
+                BookForm form = new BookForm();
+                form.setBook(book);
+                form.setAvgRating(ratingService.avgBookRating(book));
+
+                rec_result.add(form);
+            }
+
+            model.put("recommendations", rec_result);
         }
 
         // Получение ошибки из сессии
@@ -76,13 +84,6 @@ public class IReadBookController {
         model.put("books", result);
         return new ModelAndView("catalog");
     }
-
-    /*@RequestMapping(value = "books", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public List<IReadBook> listBooks() {
-        List<IReadBook> books = iReadBooksService.listBooks();
-        return books;
-    }*/
 
     @RequestMapping(value = "rating", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody

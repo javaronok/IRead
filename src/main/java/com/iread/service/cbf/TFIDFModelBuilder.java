@@ -44,61 +44,60 @@ public class TFIDFModelBuilder implements Provider<TFIDFModel> {
      */
     @Override
     public TFIDFModel get() {
-        // Build a map of tags to numeric IDs.  This lets you convert tags (which are strings)
-        // into long IDs that you can use as keys in a tag vector.
+        // Постоим ассоциативный массив тэгов и их идентификаторам.
+        // Присвоим строковым тегам идентификаторы чтобы использвать их как набор ключей
         Map<String, Long> tagIds = buildTagIdMap();
 
-        // Create a vector to accumulate document frequencies for the IDF computation
+        // Создаём вектор для накопления частот вхождений тэгов документа для IDF подсчёта
         MutableSparseVector docFreq = MutableSparseVector.create(tagIds.values());
         docFreq.fill(0);
 
-        // We now proceed in 2 stages. First, we build a TF vector for each item.
-        // While we do this, we also build the DF vector.
-        // We will then apply the IDF to each TF vector and normalize it to a unit vector.
+        // Пройдём два шага. Первй, построим TF-вектор для каждого элемента.
+        // Пока мы это делаем, строим TF вектор.
+        // Будем применять IDF для кадого TF вектора и нормализировать его в одномерный вектор.
 
-        // Create a map to store the item TF vectors.
+        // Созданим ассоциативный массив для хранения TF векторов
         Map<Long,MutableSparseVector> itemVectors = Maps.newHashMap();
 
-        // Create a work vector to accumulate each item's tag vector.
-        // This vector will be re-used for each item.
+        // Создадим рабочий вектор для накопления каждого тега вектора элементов
+        // Вектор будет повторно использован для каждого элемента
         MutableSparseVector work = MutableSparseVector.create(tagIds.values());
 
-        // Iterate over the items to compute each item's vector.
+        // Идём по элементоа вычисляя для каждого вектор элементов
         LongSet items = dao.getItemIds();
         long counter = 0;
         for (long item: items) {
             counter++;
-            // Reset the work vector for this item's tags.
+            // Очищаем рабочий вектор для тэгов текущего элемента
             work.clear();
-            // Now the vector is empty (all keys are 'unset').
+            // Теперь вектор пуст!
 
-            // TODO Populate the work vector with the number of times each tag is applied to this item.
+            // Публикуем с числом вхождений тегов для кажлого элемента
             List<String> tags =  dao.getItemTags(item);
             for(String tag: tags){
-                // from tagIds we find out what is the long value for this tag
+                // В tagIds мы находим как много вхождений тега в элемент
                 long tagId = tagIds.get(tag);
 
-                // check work to see if this tagId already exist.  If so, increment by 1.  Else init to 1.
+                // Проверяем что tagId уже существует, если так - инкрементируем, нет - инициализируем в единицу
                 try{
                     work.set(tagId, work.get(tagId)+1);
                 }catch(IllegalArgumentException e){
-                    // init value to 1
+                    // выставляем в единицу
                     work.set(tagId, 1);
                 }
             }
 
-            // TODO Increment the document frequency vector once for each unique tag on the item.
-            // create another sparse vector to see if a tag already been applied to this item
+            // Создаём другой временный вектор для поиска что тэг уже был использован для этого лемента
             MutableSparseVector temp = MutableSparseVector.create(tagIds.values());
 
             for(String tag: tags){
                 long tagId = tagIds.get(tag);
                 try{
-                    // we already saw this tag in this item.
+                    // Мы уже видели этот тег в этом элементе
                     temp.get(tagId);
                     continue;
                 }catch(IllegalArgumentException e){
-                    // first time we see this tag in this item.
+                    // Впервые видем этот тэг в элементе
                     temp.set(tagId, 1);
                     docFreq.set(tagId, docFreq.get(tagId)+1);
                 }
@@ -106,23 +105,15 @@ public class TFIDFModelBuilder implements Provider<TFIDFModel> {
             }
 
 
-            // Save a shrunk copy of the vector (only storing tags that apply to this item) in
-            // our map, we'll add IDF and normalize later.
+            // Сохраняем сокращённую копию вектора (хранищий только тэги для этого элемента) в наш массив,
+            // будет добавлен в IDF и нормализирован после
             itemVectors.put(item, work.shrinkDomain());
-            // work is ready to be reset and re-used for the next item
+            // work готов для очистки и повторого использования для следующего элемента
         }
 
-        // Now we've seen all the items, so we have each item's TF vector and a global vector
-        // of document frequencies.
-        // Invert and log the document frequency.  We can do this in-place.
+        // Просматриваем все элементы, т.к. мы имеем TF вектор длч каждого элемента и глобальный вектор для частоты вхождений
+        // Согласно формуле, инвертируем и берём логарифм по частоте. Можем делать это совместно.
         for (VectorEntry e: docFreq.fast()) {
-            // TODO Update this document frequency entry to be a log-IDF value
-            // debug before
-            //System.out.print("Before...");
-            //System.out.print(e.getKey());
-            //System.out.print(": ");
-            //System.out.print(docFreq.get(e.getKey()));
-
             long tagId = e.getKey();
             if(tagId ==1){
                 System.out.println("");
@@ -130,54 +121,36 @@ public class TFIDFModelBuilder implements Provider<TFIDFModel> {
             double idf = e.getValue();
             double log_idf = Math.log10(counter/idf);
             docFreq.set(tagId, log_idf);
-            //System.out.print("   After...");
-            //System.out.print(e.getKey());
-            //System.out.print(": ");
-            //System.out.println(docFreq.get(e.getKey()));
         }
 
-        // Now docFreq is a log-IDF vector.
-        // So we can use it to apply IDF to each item vector to put it in the final model.
-        // Create a map to store the final model data.
+        // Теперь docFreq - логарифмированный IDF вектор
+        // Теперь мы можем его использовать в IDF для каждого элемента вектора и положить его в финальную модель
+        // Создадим массив для хранения финальной модели
         Map<Long,SparseVector> modelData = Maps.newHashMap();
         for (Map.Entry<Long,MutableSparseVector> entry: itemVectors.entrySet()) {
-            MutableSparseVector tv = entry.getValue(); // tv is the TF of each tag for this item
-            // TODO Convert this vector to a TF-IDF vector
+            // tv - TF каждого тега для элемента
+            MutableSparseVector tv = entry.getValue();
+            // Конвертируем этот вектор в TF-IDF вектор
             for(VectorEntry v: tv.fast()){
-                //System.out.print("Movie: ");
-                //System.out.print(entry.getKey());
-                //System.out.print(" Tag: ");
-                //System.out.print(v.getKey());
-
                 double tf = v.getValue();
-                //System.out.print(" tf: ");
-                //System.out.print(tf);
-
-
                 double idf = docFreq.get(v.getKey());
-                //System.out.print(" idf: ");
-                //System.out.print(idf);
-
                 tv.set(v.getKey(), tf*idf);
-                //System.out.print(" tf*idf ");
-                //System.out.println(tv.get(v.getKey()));
             }
-            // tv is now the tf*idf vector
+            // tv теперь - tf*idf вектор
 
-            // TODO Normalize the TF-IDF vector to be a unit vector
-            // HINT The method tv.norm() will give you the Euclidian length of the vector
+            // Нормализируем TF-IDF вектор в одномерный вектор
+            // Метод tv.norm() получает Евклидову длину вектора
             double len = tv.norm();
-            //System.out.print("Length: ");
-            //System.out.println(len);
+
             for(VectorEntry v: tv.fast()){
                 tv.set(v.getKey(), v.getValue()/len);
             }
             
-            // Store a frozen (immutable) version of the vector in the model data.
+            // Сохраним неизменную весию вектора в данных модели
             modelData.put(entry.getKey(), tv.freeze());
         }
 
-        // we technically don't need the IDF vector anymore, so long as we have no new tags
+        // Нам больше не нужен IDF вектор так как мы не получим новых тегов
         return new TFIDFModel(tagIds, modelData);
     }
 

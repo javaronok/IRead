@@ -3,7 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--@elvariable id="books" type="List<com.iread.form.BookForm>"--%>
-<%--@elvariable id="recommendations" type="List<com.iread.model.IReadBook>"--%>
+<%--@elvariable id="recommendations" type="List<com.iread.form.BookForm>"--%>
 <%--@elvariable id="errorMessage" type="String>"--%>
 
 <sec:authorize var="isAuth" access="isAuthenticated()" />
@@ -223,16 +223,30 @@
 
     <div class="row">
         <div class="row masonry" data-columns>
-            <c:forEach var="book" items="${recommendations}">
+            <c:forEach var="item" items="${recommendations}">
                 <div class="item">
                     <div class="thumbnail">
                         <img src="images/placeholder.png" alt="" class="img-responsive">
 
                         <div class="caption">
-                            <h3><a href="#">${book.bookName}</a></h3>
+                            <h3><a href="#">${item.book.bookName}</a></h3>
                             <h4><a href="#">${item.book.authorName}</a></h4>
 
-                            <p>${book.annotation}</p>
+                            <c:choose>
+                                <c:when test="${not empty item.avgRating}">
+                                    <div style="display: inline-block; position: relative;" class="rating-symbol">
+                                        <div style="visibility: hidden;"
+                                             class="rating-symbol-background glyphicon glyphicon-star-empty"></div>
+                                        <div style="display: inline-block; position: absolute; overflow: hidden; left: 0px; right: 0px; width: auto;"
+                                             class="rating-symbol-foreground">
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        </div>
+                                    </div>
+                                    <span class="avg-rating label label-default">${item.avgRating}</span>
+                                </c:when>
+                            </c:choose>
+
+                            <p>${item.book.annotation}</p>
                             <!--a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a-->
                             <!-- TODO: Средний рейтинг -->
                         </div>
