@@ -37,7 +37,9 @@ function addBookHandler() {
 
         var book = {
             bookName: $('#bookName').val(),
-            bookAuthor: $('#bookAuthor').val(),
+            authorLastName: $('#authorLastName').val(),
+            authorFirstName: $('#authorFirstName').val(),
+            authorPatronymic: $('#authorPatronymic').val(),
             bookYear: $('#bookYear').val(),
             bookAnnotation: $('#bookAnnotation').val(),
             tags: tags
