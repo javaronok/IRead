@@ -189,7 +189,7 @@
                         <img src="images/placeholder.png" alt="" class="img-responsive">
 
                         <div class="caption">
-                            <h3><a href="#">${item.book.bookName}</a></h3>
+                            <h3><a href="#">${item.book.bookName} (${item.book.publicationYear})</a></h3>
                             <h4><a href="#">${item.book.authorName}</a></h4>
                             <c:choose>
                                 <c:when test="${not empty item.avgRating}">
