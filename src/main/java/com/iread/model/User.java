@@ -14,7 +14,8 @@ import java.util.*;
 public class User implements Serializable, UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "PKIUser", sequenceName = "SEQ_USER", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PKIUser")
     @Column(name = "ID", unique = true, nullable = false)
     private Long id;
 
