@@ -16,7 +16,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap Template</title>
+    <title>Буду читать</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -49,7 +49,11 @@
         </div>
         <div class="collapse navbar-collapse" id="responsive-menu">
             <ul class="nav navbar-nav">
-                <li><a href="<c:url value="/addbook" />">Добавить книгу</a></li>
+                <c:choose>
+                    <c:when test="${isAuth}">
+                        <li><a href="<c:url value="/addbook" />">Добавить книгу</a></li>
+                    </c:when>
+                </c:choose>
                 <!--li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">пункт 2 <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -81,12 +85,10 @@
                             <section class="col-lg-9">
                                 <form action="<c:url value='/j_spring_security_check' />" method="POST" class="navbar-form" style="width:530px">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="user" name="j_username"
-                                               placeholder="E-mail" value="">
+                                        <input type="text" class="form-control" id="user" name="j_username" placeholder="Имя пользователя" value="">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" id="password" name="j_password"
-                                               placeholder="Пароль" value="">
+                                        <input type="password" class="form-control" id="password" name="j_password" placeholder="Пароль" value="">
                                     </div>
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fa fa-sign-in"></i> ВОЙТИ

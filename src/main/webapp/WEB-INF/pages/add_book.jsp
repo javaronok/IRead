@@ -13,7 +13,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title>Bootstrap Template</title>
+  <title>Буду читать</title>
 
   <!-- Bootstrap -->
   <link href="css/bootstrap.css" rel="stylesheet">
@@ -42,10 +42,10 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">#БУДУЧИТАТЬ</a>
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/catalog">#БУДУЧИТАТЬ</a>
     </div>
     <div class="collapse navbar-collapse" id="responsive-menu">
-      <ul class="nav navbar-nav">
+      <!--ul class="nav navbar-nav">
         <li><a href="#">пункт 1</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">пункт 2 <b class="caret"></b></a>
@@ -58,7 +58,7 @@
         </li>
         <li><a href="#">пункт 3</a></li>
         <li><a href="#">пункт 4</a></li>
-      </ul>
+      </ul-->
       <c:choose>
         <c:when test="${isAuth}">
           <ul class="nav navbar-nav">
@@ -75,7 +75,7 @@
         <c:otherwise>
           <form action="<c:url value='/j_spring_security_check' />" method="POST" class="navbar-form navbar-right">
             <div class="form-group">
-              <input type="text" class="form-control" id="user" name="j_username" placeholder="E-mail" value="">
+              <input type="text" class="form-control" id="user" name="j_username" placeholder="Имя пользователя" value="">
             </div>
             <div class="form-group">
               <input type="password" class="form-control" id="password" name="j_password" placeholder="Пароль" value="">
