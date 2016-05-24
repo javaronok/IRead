@@ -167,6 +167,50 @@
 </div>
 
 <div class="container">
+    <c:choose>
+        <c:when test="${not empty recommendations}">
+            <h3>Рекомендации </h3>
+
+            <div class="row">
+                <div class="row masonry" data-columns>
+                    <c:forEach var="item" items="${recommendations}">
+                        <div class="item">
+                            <div class="thumbnail">
+                                <img src="images/placeholder.png" alt="" class="img-responsive">
+
+                                <div class="caption">
+                                    <h3><a href="#">${item.book.bookName}</a></h3>
+                                    <h4><a href="#">${item.book.authorName}</a></h4>
+
+                                    <c:choose>
+                                        <c:when test="${not empty item.avgRating}">
+                                            <div style="display: inline-block; position: relative;" class="rating-symbol">
+                                                <div style="visibility: hidden;"
+                                                     class="rating-symbol-background glyphicon glyphicon-star-empty"></div>
+                                                <div style="display: inline-block; position: absolute; overflow: hidden; left: 0px; right: 0px; width: auto;"
+                                                     class="rating-symbol-foreground">
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                </div>
+                                            </div>
+                                            <span class="avg-rating label label-default">${item.avgRating}</span>
+                                        </c:when>
+                                    </c:choose>
+
+                                    <p>${item.book.annotation}</p>
+                                    <!--a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a-->
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+            </div>
+
+            <hr>
+        </c:when>
+    </c:choose>
+
+    <h3>Доступные книги </h3>
+
     <div class="row">
         <div id="bookStore" class="row masonry" data-columns >
             <!--div rv-each-book="books">
@@ -215,41 +259,6 @@
                             </c:when>
                             </c:choose>
                             <span class="label label-default"></span>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
-    <p>Recommendations </p>
-
-    <div class="row">
-        <div class="row masonry" data-columns>
-            <c:forEach var="item" items="${recommendations}">
-                <div class="item">
-                    <div class="thumbnail">
-                        <img src="images/placeholder.png" alt="" class="img-responsive">
-
-                        <div class="caption">
-                            <h3><a href="#">${item.book.bookName}</a></h3>
-                            <h4><a href="#">${item.book.authorName}</a></h4>
-
-                            <c:choose>
-                                <c:when test="${not empty item.avgRating}">
-                                    <div style="display: inline-block; position: relative;" class="rating-symbol">
-                                        <div style="visibility: hidden;"
-                                             class="rating-symbol-background glyphicon glyphicon-star-empty"></div>
-                                        <div style="display: inline-block; position: absolute; overflow: hidden; left: 0px; right: 0px; width: auto;"
-                                             class="rating-symbol-foreground">
-                                            <span class="glyphicon glyphicon-star"></span>
-                                        </div>
-                                    </div>
-                                    <span class="avg-rating label label-default">${item.avgRating}</span>
-                                </c:when>
-                            </c:choose>
-
-                            <p>${item.book.annotation}</p>
-                            <!--a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a-->
                         </div>
                     </div>
                 </div>
