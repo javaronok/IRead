@@ -52,6 +52,8 @@ public class ContentBasedRecommendationService extends RatingRecommendationServi
             Set<IReadTag> bookTags = book.getTags();
             if (bookTags != null) {
                 List<String> bTagNames = compileBookTags(bookTags);
+                if (book.getAuthorName() != null)
+                    bTagNames.add(book.getAuthorName());
                 ItemTags tag = ItemTags.createItemTags(item, bTagNames);
                 tags.add(tag);
             }
