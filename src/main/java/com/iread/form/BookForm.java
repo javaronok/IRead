@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 public class BookForm {
     private IReadBook book;
     private BigDecimal avgRating;
+    private BigDecimal ownRating;
 
     public IReadBook getBook() {
         return book;
@@ -22,5 +23,13 @@ public class BookForm {
 
     public void setAvgRating(BigDecimal avgRating) {
         this.avgRating = avgRating;
+    }
+
+    public BigDecimal getOwnRating() {
+        return ownRating;
+    }
+
+    public void setOwnRating(BigDecimal ownRating) {
+        this.ownRating = ownRating;
     }
 }

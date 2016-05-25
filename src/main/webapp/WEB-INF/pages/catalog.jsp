@@ -237,25 +237,28 @@
                         <div class="caption">
                             <h3><a href="#">${item.book.bookName} (${item.book.publicationYear})</a></h3>
                             <h4><a href="#">${item.book.authorName}</a></h4>
-                            <c:choose>
-                                <c:when test="${not empty item.avgRating}">
-                                    <div style="display: inline-block; position: relative;" class="rating-symbol">
-                                        <div style="visibility: hidden;"
-                                             class="rating-symbol-background glyphicon glyphicon-star-empty"></div>
-                                        <div style="display: inline-block; position: absolute; overflow: hidden; left: 0px; right: 0px; width: auto;"
-                                             class="rating-symbol-foreground">
-                                            <span class="glyphicon glyphicon-star"></span>
-                                        </div>
+                            <c:if test="${not empty item.avgRating}">
+                                <div style="display: inline-block; position: relative;" class="rating-symbol">
+                                    <div style="visibility: hidden;" class="rating-symbol-background glyphicon glyphicon-star-empty"></div>
+                                    <div style="display: inline-block; position: absolute; overflow: hidden; left: 0px; right: 0px; width: auto;" class="rating-symbol-foreground">
+                                        <span class="glyphicon glyphicon-star"></span>
                                     </div>
-                                    <span class="avg-rating label label-default">${item.avgRating}</span>
-                                </c:when>
-                            </c:choose>
+                                </div>
+                                <span class="avg-rating label label-default">${item.avgRating}</span>
+                            </c:if>
 
                             <p>${item.book.annotation}</p>
                             <!--a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a-->
                             <c:choose>
                             <c:when test="${isAuth}">
-                                <input type="hidden" class="rating" data-fractions="4" value="${item.avgRating}"  />
+                                <c:choose>
+                                    <c:when test="${not empty item.ownRating}">
+                                        <input type="hidden" class="rating" data-fractions="4" value="${item.ownRating}" />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="hidden" class="rating" data-fractions="4" value="0" />
+                                    </c:otherwise>
+                                </c:choose>
                             </c:when>
                             </c:choose>
                             <span class="label label-default"></span>
