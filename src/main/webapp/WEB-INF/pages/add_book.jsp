@@ -33,7 +33,7 @@
 <input id="tagsGetUrl" type="hidden" value="<c:url value="/tags"/>" />
 <input id="postBookUrl" type="hidden" value="<c:url value="/book_persist"/>" />
 
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-inverse">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#responsive-menu">

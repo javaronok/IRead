@@ -30,7 +30,7 @@
 </head>
 <body>
 
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-inverse">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#responsive-menu">
@@ -89,7 +89,7 @@
 
 <div class="container">
   <form:form class="form-horizontal" method="POST" commandName="userSignUp" action="signup_save">
-    <h4 class="muted offset1">Регистрация пользователя</h4>
+    <h4 class="muted offset1">Регистрация пользователя: </h4>
     <div class="control-group">
       <label class="control-label" for="inputLogin">Логин</label>
       <div class="controls">
