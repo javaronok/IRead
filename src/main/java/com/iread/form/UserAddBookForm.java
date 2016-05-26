@@ -11,6 +11,7 @@ public class UserAddBookForm {
     private String authorPatronymic;
     private Integer bookYear;
     private String bookAnnotation;
+    private String coverFileUid;
     private Set<IReadTag> tags;
 
     public String getBookName() {
@@ -67,5 +68,13 @@ public class UserAddBookForm {
 
     public void setTags(Set<IReadTag> tags) {
         this.tags = tags;
+    }
+
+    public String getCoverFileUid() {
+        return coverFileUid;
+    }
+
+    public void setCoverFileUid(String coverFileUid) {
+        this.coverFileUid = coverFileUid;
     }
 }

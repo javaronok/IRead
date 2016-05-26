@@ -10,6 +10,7 @@ import com.iread.service.CompositeRecommendationService;
 import com.iread.service.IReadBooksService;
 import com.iread.service.IReadTagService;
 import com.iread.service.RatingService;
+import com.iread.utils.AttachmentFileStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.WebAttributes;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -42,6 +45,9 @@ public class IReadBookController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    protected AttachmentFileStore attachmentFileStore;
 
     @RequestMapping(value = "catalog", method = RequestMethod.GET)
     public ModelAndView show(HttpServletRequest request,
@@ -115,5 +121,10 @@ public class IReadBookController {
     public List<IReadTag> getTags(Principal principal) throws IllegalAccessException {
         List<IReadTag> tags = iReadTagsService.listTags();
         return tags;
+    }
+
+    @RequestMapping(value = "download", method = RequestMethod.GET)
+    public void download(@RequestParam("uid") String uid, HttpServletResponse response) throws IOException {
+        attachmentFileStore.copyFile(uid, response.getOutputStream());
     }
 }

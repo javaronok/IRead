@@ -195,17 +195,7 @@ public class AppWebMVCConfig extends WebMvcConfigurerAdapter {
         return transactionManager;
     }
 
-    /*@Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(tableParamArgumentResolver());
-    }*/
-
-    /*@Bean
-    public HandlerMethodArgumentResolver tableParamArgumentResolver() {
-        return new TableParamArgumentResolver();
-    }*/
-
-    /*@Bean
+    @Bean
     public CommonsMultipartResolver multipartResolver() throws IOException {
         String path = System.getProperty("java.io.tmpdir");
         CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
@@ -213,5 +203,5 @@ public class AppWebMVCConfig extends WebMvcConfigurerAdapter {
         commonsMultipartResolver.setMaxUploadSize(10 * 1024 * 1024); // 10Mb
         commonsMultipartResolver.setUploadTempDir(new FileSystemResource(path));
         return commonsMultipartResolver;
-    }*/
+    }
 }

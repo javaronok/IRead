@@ -32,6 +32,8 @@
 <body>
 <input id="tagsGetUrl" type="hidden" value="<c:url value="/tags"/>" />
 <input id="postBookUrl" type="hidden" value="<c:url value="/book_persist"/>" />
+<input id="uploadBookCoverUrl" type="hidden" value="<c:url value="/upload"/>">
+<input id="homeUrl" type="hidden" value="<c:url value="/catalog"/>">
 
 <div class="navbar navbar-inverse">
   <div class="container">
@@ -132,6 +134,13 @@
 
     <div>
       <select id="book-tags" multiple="multiple"></select>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="bookAnnotation">Обложка</label>
+      <div class="controls">
+        <input id="bookCoverFile" type="file" class="file" data-preview-file-type="text">
+      </div>
     </div>
 
     <div class="control-group">

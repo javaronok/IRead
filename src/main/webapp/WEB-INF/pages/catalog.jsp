@@ -176,7 +176,14 @@
                     <c:forEach var="item" items="${recommendations}">
                         <div class="item">
                             <div class="thumbnail">
-                                <img src="images/placeholder.png" alt="" class="img-responsive">
+                                <c:choose>
+                                    <c:when test="${not empty item.book.cover}">
+                                        <img src="<c:url value="/download?uid=${item.book.cover}"/>" alt="" height="500" width="200" class="img-responsive">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="images/placeholder.png" alt="" class="img-responsive">
+                                    </c:otherwise>
+                                </c:choose>
 
                                 <div class="caption">
                                     <h3><a href="#">${item.book.bookName}</a></h3>
@@ -232,7 +239,14 @@
             <c:forEach var="item" items="${books}">
                 <div class="item" bookId="${item.book.id}">
                     <div class="thumbnail">
-                        <img src="images/placeholder.png" alt="" class="img-responsive">
+                        <c:choose>
+                            <c:when test="${not empty item.book.cover}">
+                                <img src="<c:url value="/download?uid=${item.book.cover}"/>" alt="" height="500" width="200" class="img-responsive">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="images/placeholder.png" alt="" class="img-responsive">
+                            </c:otherwise>
+                        </c:choose>
 
                         <div class="caption">
                             <h3><a href="#">${item.book.bookName} (${item.book.publicationYear})</a></h3>

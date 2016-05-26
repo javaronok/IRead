@@ -37,6 +37,7 @@ public class IReadBooksService {
         book.setAuthorPatronymic(form.getAuthorPatronymic());
         book.setPublicationDate(form.getBookYear());
         book.setAnnotation(form.getBookAnnotation());
+        book.setCover(form.getCoverFileUid());
         book.setTags(form.getTags());
 
         repository.save(book);

@@ -27,13 +27,35 @@ function publishTagReference() {
 }
 
 function addBookHandler() {
-    $('#addBookBtn').on('click', function() {
+    $('#addBookBtn').on('click', function(e) {
+        e.preventDefault();
+
         var tags = [];
 
         $.each($('#book-tags').find('option:selected'), function(){
             var tagId = $(this).val();
             tags.push({id: tagId});
         });
+
+        var file = $('#bookCoverFile')[0].files[0];
+        var uid = null;
+
+        if (file) {
+            var fileForm = new FormData();
+            fileForm.append("file", file);
+
+            $.ajax($('#uploadBookCoverUrl').val(), {
+                data: fileForm,
+                dataType: 'text',
+                processData: false,
+                contentType: false,
+                async: false,
+                type: 'POST',
+                success: function(data){
+                    uid = JSON.parse(data);
+                }
+            });
+        }
 
         var book = {
             bookName: $('#bookName').val(),
@@ -42,6 +64,7 @@ function addBookHandler() {
             authorPatronymic: $('#authorPatronymic').val(),
             bookYear: $('#bookYear').val(),
             bookAnnotation: $('#bookAnnotation').val(),
+            coverFileUid: uid,
             tags: tags
         };
 
@@ -53,5 +76,7 @@ function addBookHandler() {
             data: JSON.stringify(book),
             contentType: 'application/json'
         });
+
+        window.location = $('#homeUrl').val();
     })
 }

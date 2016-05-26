@@ -1,7 +1,6 @@
 package com.iread.model;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -32,6 +31,9 @@ public class IReadBook {
 
     @Column(name = "ANNOTATION", columnDefinition = "blob")
     private String annotation;
+
+    @Column(name = "COVER_CAPTURE")
+    private String cover;
 
     @ManyToMany
     @JoinTable(name = "book_tags",
@@ -109,6 +111,14 @@ public class IReadBook {
 
     public void setAuthorPatronymic(String authorPatronymic) {
         this.authorPatronymic = authorPatronymic;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 
     public String getAuthorName() {

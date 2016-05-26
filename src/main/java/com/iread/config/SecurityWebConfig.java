@@ -48,6 +48,8 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/book_save").permitAll()
                 .antMatchers(HttpMethod.POST, "/book_persist").permitAll()
                 .antMatchers(HttpMethod.GET, "/tags").permitAll()
+                .antMatchers(HttpMethod.GET, "/download").permitAll()
+                .antMatchers(HttpMethod.POST, "/upload").permitAll()
                 .antMatchers("/signup").permitAll()
                 .antMatchers("/catalog").permitAll()
                 .antMatchers("/addbook").permitAll()

@@ -19,6 +19,7 @@
         <param-value>
             com.iread.config.AppWebMVCConfig
             com.iread.config.SecurityWebConfig
+            com.iread.config.FileStorageConfig
         </param-value>
     </context-param>
 
