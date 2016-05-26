@@ -47,6 +47,11 @@ public class IReadBookController {
     public ModelAndView show(HttpServletRequest request,
                              ModelMap model, Principal principal
     ) {
+        User user = null;
+        if (principal != null) {
+            user = userService.getUserByName(principal.getName());
+        }
+
         List<IReadBook> books = iReadBooksService.listBooks();
         List<BookForm> result = new ArrayList<>();
         for (IReadBook book : books) {
@@ -54,11 +59,15 @@ public class IReadBookController {
             form.setBook(book);
             form.setAvgRating(ratingService.avgBookRating(book));
 
+            if (user != null) {
+                IReadRating rating = ratingService.lookupRating(user, book);
+                if (rating != null)
+                    form.setOwnRating(rating.getRate());
+            }
             result.add(form);
         }
 
-        if (principal != null) {
-            User user = userService.getUserByName(principal.getName());
+        if (user != null) {
             List<IReadRating> iReadRatings = ratingService.getAllRatings();
             List<IReadBook> recms = compositeRecommendationService.getRecommendation(books, iReadRatings, user);
             List<BookForm> rec_result = new ArrayList<>();
