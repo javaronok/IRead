@@ -24,7 +24,7 @@ public class CompositeRecommendationService {
     @Autowired
     private ContentBasedRecommendationService contentBasedRecommendationService;
 
-    public List<IReadBook> getRecommendation(List<IReadBook> books, List<IReadRating> rs, User user) {
+    public List<Result> getCompositeRecommendations(List<IReadBook> books, List<IReadRating> rs, User user) {
         List<Result> results = new ArrayList<>();
 
         results.addAll(collaborativeRecommendationService.getRecommendation(rs, user));
@@ -36,6 +36,12 @@ public class CompositeRecommendationService {
                 return o1.getScore() == o2.getScore() ? 0 : o1.getScore() < o2.getScore() ? 1 : -1;
             }
         });
+
+        return results;
+    }
+
+    public List<IReadBook> getRecommendation(List<IReadBook> books, List<IReadRating> rs, User user) {
+        List<Result> results = getCompositeRecommendations(books, rs, user);
 
         Set<IReadBook> rBooks = new LinkedHashSet<>();
 

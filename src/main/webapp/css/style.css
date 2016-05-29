@@ -85,5 +85,8 @@ color: #FFF;
 	top: 30px;
 	left: 20px;
 	right: 20px;
+}
 
+td.alignRight {
+	text-align: right !important;
 }

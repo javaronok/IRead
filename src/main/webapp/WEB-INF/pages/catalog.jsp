@@ -74,6 +74,7 @@
                                     ${principal.username} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
+                                <li><a href="<c:url value="/profile" />">Профиль</a></li>
                                 <li><a href="<c:url value="/j_spring_security_logout" />">Выйти</a></li>
                             </ul>
                         </li>

@@ -21,6 +21,9 @@ public class RatingService {
     @Autowired
     private RatingStatRepository ratingRepository;
 
+    @Autowired
+    private IReadBooksService iReadBookService;
+
     public List<IReadRating> getAllRatings() {
         return iReadRatingRepository.findAll();
     }
@@ -28,6 +31,11 @@ public class RatingService {
     public IReadRating lookupRating(User user, IReadBook book) {
         List<IReadRating> ratings = iReadRatingRepository.findByUserAndBook(user, book);
         return !ratings.isEmpty() ? ratings.get(0) : null;
+    }
+
+    @Transactional(readOnly = true)
+    public List<IReadRating> listRatingsByUser(User user) {
+        return iReadRatingRepository.findByUser(user);
     }
 
     @Transactional(readOnly = false)

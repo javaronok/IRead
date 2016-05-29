@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.StringJoiner;
 
 @Entity
 @Table(name = "books")
@@ -35,7 +36,7 @@ public class IReadBook {
     @Column(name = "COVER_CAPTURE")
     private String cover;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "book_tags",
             joinColumns = {@JoinColumn(name = "book_id", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "tag_id", referencedColumnName = "ID")})
@@ -142,6 +143,16 @@ public class IReadBook {
         }
 
         return sb.toString();
+    }
+
+    public String getTagList() {
+        StringJoiner joiner = new StringJoiner(",");
+
+        for (IReadTag tag : tags) {
+            joiner.add(tag.getTagName());
+        }
+
+        return joiner.toString();
     }
 
     @Override

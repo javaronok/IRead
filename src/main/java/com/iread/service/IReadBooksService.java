@@ -25,8 +25,19 @@ public class IReadBooksService {
 
     private void initAll(List<IReadBook> books) {
         for (IReadBook book : books) {
-            Hibernate.initialize(book.getTags());
+            initFull(book);
         }
+    }
+
+    @Transactional
+    public IReadBook load(Long id) {
+        IReadBook one = repository.findOne(id);
+        initFull(one);
+        return one;
+    }
+
+    public void initFull(IReadBook book) {
+        Hibernate.initialize(book.getTags());
     }
 
     public IReadBook saveBook(UserAddBookForm form) {
