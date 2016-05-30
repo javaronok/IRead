@@ -39,23 +39,6 @@ public class AttachmentFileStore {
         return null;
     }
 
-    public void saveAttachmentToStore(String uid) throws IOException {
-        String dwhPath = getDwhPath();
-        File destDir = new File(dwhPath);
-
-        if (!destDir.exists()) {
-            destDir.mkdir();
-        }
-
-        File destFile = new File(destDir, uid);
-
-        if (!destFile.exists()) {
-            File src = new File(getTmpPath(), uid);
-            if (src.exists())
-                FileUtils.copyFileToDirectory(src, destDir);
-        }
-    }
-
     private File getFileByUid(String uid) {
         File dwhFile = new File(getDwhPath(), uid);
         if (dwhFile.exists()) {
