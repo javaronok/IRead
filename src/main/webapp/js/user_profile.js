@@ -45,7 +45,7 @@ function initCompositeRecommendationTable() {
         "bServerSide": false,
         "bSort": true,
         "bAutoWidth": false,
-        "order": [[0, "asc"]],
+        "order": [[4, "desc"]],
         "sAjaxSource": $('#compositeTableUrl').val(),
         "columns": [
             {"data": "book.bookName"},
@@ -71,7 +71,7 @@ function initCbfRecommendationTable() {
         "bServerSide": false,
         "bSort": true,
         "bAutoWidth": false,
-        "order": [[0, "asc"]],
+        "order": [[4, "desc"]],
         "sAjaxSource": $('#cbfTableUrl').val(),
         "columns": [
             {"data": "book.bookName"},
@@ -97,7 +97,7 @@ function initCollaborativeRecommendationTable() {
         "bServerSide": false,
         "bSort": true,
         "bAutoWidth": false,
-        "order": [[ 0, "asc" ]],
+        "order": [[ 4, "desc" ]],
         "sAjaxSource": $('#collaborativeTableUrl').val(),
         "columns": [
             {"data": "book.bookName"},
