@@ -46,7 +46,7 @@ public class AddBookController {
         return "200";
     }
 
-    @RequestMapping(value = "upload", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String upload(MultipartHttpServletRequest servletRequest) throws IOException {
         MultipartFile file = servletRequest.getFile("file");
