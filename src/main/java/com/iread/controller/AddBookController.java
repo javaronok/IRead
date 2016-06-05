@@ -2,6 +2,7 @@ package com.iread.controller;
 
 import com.iread.form.UserAddBookForm;
 import com.iread.form.UserSignUpForm;
+import com.iread.model.User;
 import com.iread.security.UserService;
 import com.iread.service.IReadBooksService;
 import com.iread.utils.AttachmentFileStore;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/")
@@ -21,6 +23,9 @@ public class AddBookController {
 
     @Autowired
     private IReadBooksService bookService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     protected AttachmentFileStore attachmentFileStore;
@@ -31,16 +36,13 @@ public class AddBookController {
         return new ModelAndView("add_book");
     }
 
-    @RequestMapping(value = "/book_save", method = RequestMethod.POST)
-    public RedirectView addBookHandler(@ModelAttribute("userAddBook") UserAddBookForm userAddBookForm) {
-        bookService.saveBook(userAddBookForm);
-        return new RedirectView("catalog");
-    }
-
     @RequestMapping(value = "/book_persist", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public String addBookPost(@RequestBody UserAddBookForm userAddBookForm) {
-        bookService.saveBook(userAddBookForm);
+    public String addBookPost(@RequestBody UserAddBookForm userAddBookForm, Principal principal) {
+        String userName = principal.getName();
+        User user = userService.getUserByName(userName);
+
+        bookService.saveBook(userAddBookForm, user);
         return "200";
     }
 

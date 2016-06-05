@@ -2,6 +2,7 @@ package com.iread.service;
 
 import com.iread.form.UserAddBookForm;
 import com.iread.model.IReadBook;
+import com.iread.model.User;
 import com.iread.repository.IReadBookRepository;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class IReadBooksService {
 
     @Autowired
     IReadBookRepository repository;
+
+    @Autowired
+    private RatingService ratingService;
 
     @Transactional
     public List<IReadBook> listBooks() {
@@ -40,7 +44,7 @@ public class IReadBooksService {
         Hibernate.initialize(book.getTags());
     }
 
-    public IReadBook saveBook(UserAddBookForm form) {
+    public IReadBook saveBook(UserAddBookForm form, User user) {
         IReadBook book = new IReadBook();
         book.setBookName(form.getBookName());
         book.setAuthorLastName(form.getAuthorLastName());
@@ -50,8 +54,14 @@ public class IReadBooksService {
         book.setAnnotation(form.getBookAnnotation());
         book.setCover(form.getCoverFileUid());
         book.setTags(form.getTags());
+        book.setOwner(user);
 
         repository.save(book);
         return book;
+    }
+
+    public void delete(IReadBook book)  {
+        repository.delete(book);
+        ratingService.deleteRatingsByBook(book);
     }
 }

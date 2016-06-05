@@ -65,10 +65,6 @@ public class UserService {
         return userRepository.findByUsernameLikeIgnoreCaseAndEnabled(term, true, pageable);
     }
 
-    public void delete(User user) {
-        userRepository.delete(user);
-    }
-
     @Transactional(readOnly = false)
     public User saveNewUserForm(UserSignUpForm form) {
         if (form == null || form.getLogin() == null || form.getPasswd() == null || form.getPasswdRepeat() == null ||

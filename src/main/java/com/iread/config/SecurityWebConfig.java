@@ -54,6 +54,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/cbf_table_full").permitAll()
                 .antMatchers(HttpMethod.GET, "/collaborative_table_full").permitAll()
                 .antMatchers(HttpMethod.POST, "/upload").permitAll()
+                .antMatchers(HttpMethod.POST, "/remove").permitAll()
                 .antMatchers("/signup").permitAll()
                 .antMatchers("/catalog").permitAll()
                 .antMatchers("/addbook").permitAll()

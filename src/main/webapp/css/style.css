@@ -90,3 +90,7 @@ color: #FFF;
 td.alignRight {
 	text-align: right !important;
 }
+
+.btn-del {
+	padding: 4px 8px;
+}

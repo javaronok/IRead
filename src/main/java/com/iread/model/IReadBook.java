@@ -36,6 +36,10 @@ public class IReadBook {
     @Column(name = "COVER_CAPTURE")
     private String cover;
 
+    @ManyToOne
+    @JoinColumn(name = "owner_id", columnDefinition = "bigint", referencedColumnName = "id")
+    private User owner;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "book_tags",
             joinColumns = {@JoinColumn(name = "book_id", referencedColumnName = "ID")},
@@ -120,6 +124,14 @@ public class IReadBook {
 
     public void setCover(String cover) {
         this.cover = cover;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public String getAuthorName() {

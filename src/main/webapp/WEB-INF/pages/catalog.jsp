@@ -35,6 +35,7 @@
 <input id="isAuthed" type="hidden" value="${isAuth}" />
 <input id="bookListDataUrl" type="hidden" value="<c:url value="/books"/>" />
 <input id="ratingPostUrl" type="hidden" value="<c:url value="/rating"/>" />
+<input id="deleteBookUrl" type="hidden" value="<c:url value="/remove"/>" />
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -264,19 +265,27 @@
 
                             <p>${item.book.annotation}</p>
                             <!--a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a-->
-                            <c:choose>
-                            <c:when test="${isAuth}">
+                            <div>
                                 <c:choose>
-                                    <c:when test="${not empty item.ownRating}">
-                                        <input type="hidden" class="rating" data-fractions="4" value="${item.ownRating}" />
-                                    </c:when>
-                                    <c:otherwise>
-                                        <input type="hidden" class="rating" data-fractions="4" value="0" />
-                                    </c:otherwise>
+                                <c:when test="${isAuth}">
+                                    <c:choose>
+                                        <c:when test="${not empty item.ownRating}">
+                                            <input type="hidden" class="rating" data-fractions="4" value="${item.ownRating}" />
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input type="hidden" class="rating" data-fractions="4" value="0" />
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
                                 </c:choose>
-                            </c:when>
-                            </c:choose>
-                            <span class="label label-default"></span>
+                                <span class="label label-default"></span>
+
+                                <c:if test="${isAuth && not empty item.book.owner && item.book.owner.username == principal.username}">
+                                    <div class="pull-right">
+                                        <button class="btn btn-default btn-del"><i class="fa fa-remove"></i> Удалить</button>
+                                    </div>
+                                </c:if>
+                            </div>
                         </div>
                     </div>
                 </div>

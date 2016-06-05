@@ -10,5 +10,6 @@ import java.util.List;
 
 public interface IReadRatingRepository extends JpaRepository<IReadRating, Long> {
     public List<IReadRating> findByUser(User user);
+    public List<IReadRating> findByBook(IReadBook book);
     public List<IReadRating> findByUserAndBook(User user, IReadBook book);
 }

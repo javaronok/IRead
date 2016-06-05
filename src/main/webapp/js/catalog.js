@@ -23,6 +23,12 @@ $(function(){
                 postRating(bookId, rate);
             });
 
+            $('.btn-del').on('click', function () {
+                var bookId = $(this).parents('.item').get(0).getAttribute('bookid');
+                deleteBook(bookId);
+
+                window.location.reload();
+            });
         }
     });
 });
@@ -36,5 +42,14 @@ function postRating(bookId, rating) {
             book: bookId,
             rate: rating
         }
+    });
+}
+
+function deleteBook(bookId) {
+    $.ajax({
+        type: "POST",
+        url: $('#deleteBookUrl').val(),
+        dataType: "json",
+        data:{book: bookId}
     });
 }
