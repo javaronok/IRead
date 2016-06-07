@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Long> {
     List<User> findByUsername(String userName);
-    List<User> findByUsernameAndEnabled(String userName, boolean enabled);
+    List<User> findByUsernameIgnoreCaseAndEnabled(String userName, boolean enabled);
     Page<User> findByUsernameLikeIgnoreCaseAndEnabled(String term, boolean enabled, Pageable pageable);
 }

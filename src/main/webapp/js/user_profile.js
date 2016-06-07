@@ -19,6 +19,7 @@ function initRatingsTable() {
         "bServerSide": false,
         "bSort": true,
         "bAutoWidth": false,
+        "pageLength": 100,
         "order": [[ 0, "asc" ]],
         "sAjaxSource": $('#ratingsTableUrl').val(),
         "columns": [
@@ -45,6 +46,7 @@ function initCompositeRecommendationTable() {
         "bServerSide": false,
         "bSort": true,
         "bAutoWidth": false,
+        "pageLength": 100,
         "order": [[4, "desc"]],
         "sAjaxSource": $('#compositeTableUrl').val(),
         "columns": [
@@ -71,6 +73,7 @@ function initCbfRecommendationTable() {
         "bServerSide": false,
         "bSort": true,
         "bAutoWidth": false,
+        "pageLength": 100,
         "order": [[4, "desc"]],
         "sAjaxSource": $('#cbfTableUrl').val(),
         "columns": [
@@ -97,6 +100,7 @@ function initCollaborativeRecommendationTable() {
         "bServerSide": false,
         "bSort": true,
         "bAutoWidth": false,
+        "pageLength": 100,
         "order": [[ 4, "desc" ]],
         "sAjaxSource": $('#collaborativeTableUrl').val(),
         "columns": [

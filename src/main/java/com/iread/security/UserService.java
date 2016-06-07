@@ -33,7 +33,7 @@ public class UserService {
     }
 
     public List<User> findByUserNameAndEnabled(String userName, boolean enabled) {
-        return userRepository.findByUsernameAndEnabled(userName, enabled);
+        return userRepository.findByUsernameIgnoreCaseAndEnabled(userName, enabled);
     }
 
     public User getUserByName(String userName) {

@@ -149,7 +149,7 @@ public class TFIDFItemScorer extends AbstractItemScorer {
         MutableSparseVector scores = MutableSparseVector.create(items);
         score(user, scores);
 
-        List<BasicResult> results = new ArrayList<>(items.size());
+        List<BasicResult> results = new ArrayList<>();
 
         for (VectorEntry e: scores) {
             results.add(new BasicResult(e.getKey(), e.getValue()));
