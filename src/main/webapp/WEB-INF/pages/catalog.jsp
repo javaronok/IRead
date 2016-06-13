@@ -190,7 +190,7 @@
                                 </c:choose>
 
                                 <div class="caption">
-                                    <h3><a href="#">${item.book.bookName}</a></h3>
+                                    <h3><a href="#">${item.book.bookName} (${item.book.publicationYear})</a></h3>
                                     <h4><a href="#">${item.book.authorName}</a></h4>
 
                                     <c:choose>
