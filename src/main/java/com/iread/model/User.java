@@ -3,11 +3,13 @@ package com.iread.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "i_user")
@@ -34,6 +36,12 @@ public class User implements Serializable, UserDetails {
     @Column(name = "enabled", columnDefinition = "smallint", length = 1)
     private Boolean enabled;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "ID")})
+    private Set<SysRole> roles;
+
     public Long getId() {
         return id;
     }
@@ -52,7 +60,7 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>();
+        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
     }
 
     public String getPassword() {
@@ -87,6 +95,13 @@ public class User implements Serializable, UserDetails {
         this.enabled = enabled;
     }
 
+    public Set<SysRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<SysRole> roles) {
+        this.roles = roles;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -37,7 +37,7 @@ public class IReadBook {
     private String cover;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id", columnDefinition = "bigint", referencedColumnName = "id")
+    @JoinColumn(name = "OWNER_ID", columnDefinition = "bigint", referencedColumnName = "id")
     private User owner;
 
     @ManyToMany(fetch = FetchType.EAGER)

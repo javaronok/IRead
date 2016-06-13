@@ -52,7 +52,9 @@
             <ul class="nav navbar-nav">
                 <c:choose>
                     <c:when test="${isAuth}">
-                        <li><a href="<c:url value="/addbook" />">Добавить книгу</a></li>
+                        <sec:authorize access="hasRole('ADMIN')">
+                            <li><a href="<c:url value="/addbook" />">Добавить книгу</a></li>
+                        </sec:authorize>
                     </c:when>
                 </c:choose>
                 <!--li class="dropdown">
