@@ -137,21 +137,21 @@ public class IReadBook {
     public String getAuthorName() {
         StringBuilder sb = new StringBuilder();
 
-        if (getAuthorLastName() != null)
-          sb.append(getAuthorLastName());
-
-        if (getAuthorFirstName() != null) {
-            if (sb.length() > 0)
-                sb.append(" ");
-
-            sb.append(getAuthorFirstName());
-        }
+        if (getAuthorFirstName() != null)
+          sb.append(getAuthorFirstName());
 
         if (getAuthorPatronymic() != null) {
             if (sb.length() > 0)
                 sb.append(" ");
 
             sb.append(getAuthorPatronymic());
+        }
+
+        if (getAuthorLastName() != null) {
+            if (sb.length() > 0)
+                sb.append(" ");
+
+            sb.append(getAuthorLastName());
         }
 
         return sb.toString();
