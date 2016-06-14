@@ -2,7 +2,12 @@ $(function(){
 
     $(document).ready(function() {
         publishTagReference();
-        addBookHandler();
+
+        var bookId = $('#bookId').val();
+        if (bookId != "")
+            publishSelectedTags(bookId);
+
+        addBookHandler(bookId);
     });
 });
 
@@ -26,7 +31,24 @@ function publishTagReference() {
     });
 }
 
-function addBookHandler() {
+function publishSelectedTags(bookId) {
+    var url = $('#loadBookUrl').val();
+
+    $.getJSON(url, {id: bookId},
+        function (json) {
+            var tags = json.tags;
+
+            var data = [];
+            tags.forEach(function (item) {
+                data.push(item.id);
+            });
+
+        $('#book-tags').multiselect('select', data);
+    });
+}
+
+
+function addBookHandler(bookId) {
     $('#addBookBtn').on('click', function(e) {
         e.preventDefault();
 
@@ -58,6 +80,7 @@ function addBookHandler() {
         }
 
         var book = {
+            id: bookId != "" ? bookId : null,
             bookName: $('#bookName').val(),
             authorLastName: $('#authorLastName').val(),
             authorFirstName: $('#authorFirstName').val(),
@@ -68,7 +91,7 @@ function addBookHandler() {
             tags: tags
         };
 
-        var url = $('#postBookUrl').val();
+        var url = bookId != "" ? $('#editBookUrl').val() : $('#postBookUrl').val();
         $.ajax(url, {
             type: "POST",
             async: false,

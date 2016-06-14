@@ -29,6 +29,11 @@ $(function(){
 
                 window.location.reload();
             });
+
+            $('.btn-edit').on('click', function () {
+                var bookId = $(this).parents('.item').get(0).getAttribute('bookid');
+                window.location = $('#editBookUrl').val() + "?id=" + bookId;
+            });
         }
     });
 });

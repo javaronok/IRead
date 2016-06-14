@@ -91,6 +91,6 @@ td.alignRight {
 	text-align: right !important;
 }
 
-.btn-del {
+.btn-del, .btn-edit {
 	padding: 4px 8px;
 }

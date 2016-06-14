@@ -5,6 +5,7 @@ import com.iread.model.IReadTag;
 import java.util.Set;
 
 public class UserAddBookForm {
+    private Long id;
     private String bookName;
     private String authorLastName;
     private String authorFirstName;
@@ -13,6 +14,14 @@ public class UserAddBookForm {
     private String bookAnnotation;
     private String coverFileUid;
     private Set<IReadTag> tags;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getBookName() {
         return bookName;

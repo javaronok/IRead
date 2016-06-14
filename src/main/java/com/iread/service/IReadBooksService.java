@@ -64,4 +64,20 @@ public class IReadBooksService {
         repository.delete(book);
         ratingService.deleteRatingsByBook(book);
     }
+
+    public IReadBook updateBook(UserAddBookForm form, User user) {
+        IReadBook book = load(form.getId());
+
+        book.setBookName(form.getBookName());
+        book.setAuthorLastName(form.getAuthorLastName());
+        book.setAuthorFirstName(form.getAuthorFirstName());
+        book.setAuthorPatronymic(form.getAuthorPatronymic());
+        book.setPublicationDate(form.getBookYear());
+        book.setAnnotation(form.getBookAnnotation());
+        book.setCover(form.getCoverFileUid());
+        book.setTags(form.getTags());
+        book.setOwner(user);
+
+        return repository.save(book);
+    }
 }

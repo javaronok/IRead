@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%--@elvariable id="book" type="com.iread.model.IReadBook"--%>
 
 <sec:authorize var="isAuth" access="isAuthenticated()" />
 <sec:authentication var="principal" property="principal" />
@@ -30,8 +31,11 @@
   <![endif]-->
 </head>
 <body>
+<input id="bookId" type="hidden" value="${book.id}" />
+<input id="loadBookUrl" type="hidden" value="<c:url value="/loadbook"/>" />
 <input id="tagsGetUrl" type="hidden" value="<c:url value="/tags"/>" />
 <input id="postBookUrl" type="hidden" value="<c:url value="/book_persist"/>" />
+<input id="editBookUrl" type="hidden" value="<c:url value="/book_update"/>" />
 <input id="uploadBookCoverUrl" type="hidden" value="<c:url value="/upload"/>">
 <input id="homeUrl" type="hidden" value="<c:url value="/catalog"/>">
 
@@ -99,37 +103,37 @@
     <div class="control-group">
       <label class="control-label" for="bookName">Название книги</label>
       <div class="controls">
-        <input type="text" id="bookName" placeholder="Название книги" path="bookName"/>
+        <input type="text" id="bookName" placeholder="Название книги" path="bookName" value="${book.bookName}"/>
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="authorLastName">Фамилия автора</label>
       <div class="controls">
-        <input type="text" id="authorLastName" placeholder="Фамилия автора" path="authorLastName"/>
+        <input type="text" id="authorLastName" placeholder="Фамилия автора" path="authorLastName" value="${book.authorLastName}"/>
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="authorFirstName">Имя автора</label>
       <div class="controls">
-        <input type="text" id="authorFirstName" placeholder="Имя автора" path="authorFirstName"/>
+        <input type="text" id="authorFirstName" placeholder="Имя автора" path="authorFirstName" value="${book.authorFirstName}"/>
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="authorPatronymic">Отчество автора</label>
       <div class="controls">
-        <input type="text" id="authorPatronymic" placeholder="Отчество автора" path="authorPatronymic"/>
+        <input type="text" id="authorPatronymic" placeholder="Отчество автора" path="authorPatronymic" value="${book.authorPatronymic}"/>
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="bookYear">Год издания</label>
       <div class="controls">
-        <input id="bookYear" placeholder="Год издания" path="bookYear"/>
+        <input id="bookYear" placeholder="Год издания" path="bookYear" value="${book.publicationYear}"/>
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="bookAnnotation">Аннотация</label>
       <div class="controls">
-        <textarea id="bookAnnotation" placeholder="Аннотация" rows="5" cols="40" path="bookAnnotation"></textarea>
+        <textarea id="bookAnnotation" placeholder="Аннотация" rows="5" cols="40" path="bookAnnotation">${book.annotation}</textarea>
       </div>
     </div>
 

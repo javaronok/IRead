@@ -2,6 +2,7 @@ package com.iread.controller;
 
 import com.iread.form.UserAddBookForm;
 import com.iread.form.UserSignUpForm;
+import com.iread.model.IReadBook;
 import com.iread.model.User;
 import com.iread.security.UserService;
 import com.iread.service.IReadBooksService;
@@ -31,8 +32,14 @@ public class AddBookController {
     protected AttachmentFileStore attachmentFileStore;
 
     @RequestMapping(value = "/addbook", method = RequestMethod.GET)
-    public ModelAndView addbookHandler(ModelMap model) {
+    public ModelAndView addBookHandler(ModelMap model) {
         model.addAttribute("userAddBook", new UserAddBookForm());
+        return new ModelAndView("add_book");
+    }
+
+    @RequestMapping(value = "/editbook", method = RequestMethod.GET)
+    public ModelAndView editBookHandler(@RequestParam("id") IReadBook book, ModelMap model) {
+        model.addAttribute("book", book);
         return new ModelAndView("add_book");
     }
 
@@ -43,6 +50,16 @@ public class AddBookController {
         User user = userService.getUserByName(userName);
 
         bookService.saveBook(userAddBookForm, user);
+        return "200";
+    }
+
+    @RequestMapping(value = "/book_update", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public String updateBookPost(@RequestBody UserAddBookForm userAddBookForm, Principal principal) {
+        String userName = principal.getName();
+        User user = userService.getUserByName(userName);
+
+        bookService.updateBook(userAddBookForm, user);
         return "200";
     }
 

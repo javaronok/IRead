@@ -36,6 +36,7 @@
 <input id="bookListDataUrl" type="hidden" value="<c:url value="/books"/>" />
 <input id="ratingPostUrl" type="hidden" value="<c:url value="/rating"/>" />
 <input id="deleteBookUrl" type="hidden" value="<c:url value="/remove"/>" />
+<input id="editBookUrl" type="hidden" value="<c:url value="/editbook"/>" />
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -284,6 +285,7 @@
 
                                 <c:if test="${isAuth && not empty item.book.owner && item.book.owner.username == principal.username}">
                                     <div class="pull-right">
+                                        <button class="btn btn-default btn-edit"><i class="fa fa-edit"></i> Редактировать</button>
                                         <button class="btn btn-default btn-del"><i class="fa fa-remove"></i> Удалить</button>
                                     </div>
                                 </c:if>

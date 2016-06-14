@@ -116,6 +116,12 @@ public class IReadBookController {
         return HttpStatus.OK.getReasonPhrase();
     }
 
+    @RequestMapping(value = "loadbook", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public IReadBook loadBook(@RequestParam("id") IReadBook book) throws IllegalAccessException {
+      return iReadBooksService.load(book.getId());
+    }
+
     @RequestMapping(value = "remove", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String removeBook(@RequestParam("book") IReadBook book, Principal principal) throws IllegalAccessException {
